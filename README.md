@@ -61,16 +61,6 @@
 2. 无需安装任何依赖，无需网络连接
 3. 所有数据存储在浏览器本地
 
-### Python 环境（可选）
-
-仅当需要处理 backups 目录中的 xlsx/docx 参考文件时使用：
-
-```bash
-python -m venv .venv
-source .venv/bin/activate  # macOS/Linux
-pip install openpyxl python-docx lxml
-```
-
 ## 📁 项目结构
 
 ```
