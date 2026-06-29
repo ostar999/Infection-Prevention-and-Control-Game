@@ -469,6 +469,9 @@ body.dark .knowledge-table tr:nth-child(even):hover td { background: var(--accen
       <button class="nav-btn" data-tab="stats" onclick="switchTab('stats')">
         <span class="nav-icon">📊</span> 学习统计
       </button>
+      <button class="nav-btn" data-tab="wrongbook" onclick="switchTab('wrongbook')">
+        <span class="nav-icon">📝</span> 错题本
+      </button>
       <button class="nav-btn" data-tab="reference" onclick="switchTab('reference')">
         <span class="nav-icon">📖</span> 知识速查
       </button>
@@ -620,7 +623,7 @@ function switchTab(tab){
   renderTab(tab);
 }
 function renderTab(tab){
-  switch(tab){case 'mode1':renderMode1();break;case 'mode2':renderMode2();break;case 'mode3':renderMode3();break;case 'stats':renderStats();break;case 'reference':renderReference();break;}
+  switch(tab){case 'mode1':renderMode1();break;case 'mode2':renderMode2();break;case 'mode3':renderMode3();break;case 'stats':renderStats();break;case 'wrongbook':renderWrongBook();break;case 'reference':renderReference();break;}
 }
 
 // ============================================================
@@ -745,7 +748,34 @@ function renderStats(){
   const s=loadStats(),allAcc=s.totalAnswered>0?Math.round(s.correctAnswered/s.totalAnswered*100):0,container=document.getElementById('mainContent');
   const ds=s.diseaseStats||{},de=Object.entries(ds).sort((a,b)=>(b[1].correct+b[1].wrong)-(a[1].correct+a[1].wrong));
   const wdi=[...new Set(s.wrongBook.map(w=>w.diseaseId).filter(Boolean))],wd=wdi.map(id=>DISEASES.find(d=>d.id===id)).filter(Boolean);
-  container.innerHTML=`<div class="section-title">📊 学习统计</div><div class="stats-grid"><div class="stat-card"><div class="stat-num">${s.totalScore}</div><div class="stat-title">累计总分</div></div><div class="stat-card"><div class="stat-num">${s.totalAnswered}</div><div class="stat-title">累计答题</div></div><div class="stat-card"><div class="stat-num">${s.correctAnswered}</div><div class="stat-title">累计正确</div></div><div class="stat-card"><div class="stat-num">${allAcc}%</div><div class="stat-title">总正确率</div></div><div class="stat-card"><div class="stat-num">${s.maxCombo}</div><div class="stat-title">最高连击</div></div><div class="stat-card"><div class="stat-num">${s.wrongBook.length}</div><div class="stat-title">错题数</div></div></div>${wd.length>0?`<div class="retry-box" style="text-align:center;margin-bottom:20px;padding:16px;border-radius:12px;"><div style="font-weight:700;margin-bottom:8px;color:var(--warning-dark);">🎯 错题重练</div><div style="font-size:0.85em;color:var(--text-secondary);margin-bottom:10px;">你有 <b>${wd.length}</b> 种疾病的错题，针对性练习效果更佳！</div><button class="btn btn-primary" onclick="startRetryPractice('mode1')" style="margin:3px;">🛡️ 防护选择重练</button><button class="btn btn-success" onclick="startRetryPractice('mode2')" style="margin:3px;">🦠 分类挑战重练</button></div>`:'<div class="empty-state"><div class="empty-icon">🎉</div><div>暂无错题，继续保持！</div></div>'}${de.length>0?`<div class="section-title" style="font-size:1.1em;">🎯 疾病掌握度</div><div style="overflow-x:auto;"><table class="knowledge-table" style="font-size:0.82em;"><thead><tr><th>疾病</th><th>正确</th><th>错误</th><th>掌握度</th><th>进度</th></tr></thead><tbody>${de.map(([id,st])=>{const t=st.correct+st.wrong,pct=Math.round(st.correct/t*100),grade=pct>=80?'🟢':pct>=50?'🟡':'🔴';return`<tr class="disease-stat-row"><td><strong>${st.name}</strong></td><td style="color:var(--success);">${st.correct}</td><td style="color:var(--error);">${st.wrong}</td><td>${grade} ${pct}%</td><td><div style="height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent),var(--success));border-radius:3px;transition:width 0.3s;"></div></div></td></tr>`;}).join('')}</tbody></table></div>`:'<div class="empty-state"><div style="font-size:1.5em;">📝</div><div>完成答题后这里会显示每个疾病的掌握情况</div></div>'}<div class="section-title" style="font-size:1.1em;margin-top:20px;">📝 错题本</div>${s.wrongBook.length===0?'<div class="empty-state"><div class="empty-icon">🎉</div><div>还没有错题，继续保持！</div></div>':`<div class="wrong-list">${s.wrongBook.slice().reverse().slice(0,50).map((w,i)=>`<div class="wrong-item"><strong>#${s.wrongBook.length-i}</strong> [${w.mode==='mode1'?'防护选择':w.mode==='mode2'?'分类挑战':'快问快答'}] ${w.time}<br><strong>问题：</strong>${w.question}<br><strong>你的回答：</strong><span style="color:var(--error);">${w.userAnswer}</span><br><strong>正确答案：</strong><span class="correct-ans">${w.correctAnswer}</span></div>`).join('')}</div>`}<div class="section-title" style="font-size:1em;margin-top:20px;">💾 数据管理</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;"><button class="btn btn-primary" onclick="exportStats()" style="font-size:0.85em;">📥 导出学习数据</button><button class="btn btn-outline" onclick="document.getElementById('importFile').click()" style="font-size:0.85em;">📤 导入学习数据</button><button class="btn btn-danger" onclick="clearStats()" style="font-size:0.85em;">🗑️ 清除学习记录</button></div><input type="file" id="importFile" accept=".json" style="display:none;" onchange="importStats(event)">`;
+  container.innerHTML=`<div class="section-title">📊 学习统计</div><div class="stats-grid"><div class="stat-card"><div class="stat-num">${s.totalScore}</div><div class="stat-title">累计总分</div></div><div class="stat-card"><div class="stat-num">${s.totalAnswered}</div><div class="stat-title">累计答题</div></div><div class="stat-card"><div class="stat-num">${s.correctAnswered}</div><div class="stat-title">累计正确</div></div><div class="stat-card"><div class="stat-num">${allAcc}%</div><div class="stat-title">总正确率</div></div><div class="stat-card"><div class="stat-num">${s.maxCombo}</div><div class="stat-title">最高连击</div></div><div class="stat-card"><div class="stat-num">${s.wrongBook.length}</div><div class="stat-title">错题数</div></div></div>${wd.length>0?`<div class="retry-box" style="text-align:center;margin-bottom:20px;padding:16px;border-radius:12px;"><div style="font-weight:700;margin-bottom:8px;color:var(--warning-dark);">🎯 错题重练</div><div style="font-size:0.85em;color:var(--text-secondary);margin-bottom:10px;">你有 <b>${wd.length}</b> 种疾病的错题，针对性练习效果更佳！</div><button class="btn btn-primary" onclick="startRetryPractice('mode1')" style="margin:3px;">🛡️ 防护选择重练</button><button class="btn btn-success" onclick="startRetryPractice('mode2')" style="margin:3px;">🦠 分类挑战重练</button></div>`:'<div class="empty-state"><div class="empty-icon">🎉</div><div>暂无错题，继续保持！</div></div>'}${de.length>0?`<div class="section-title" style="font-size:1.1em;">🎯 疾病掌握度</div><div style="overflow-x:auto;"><table class="knowledge-table" style="font-size:0.82em;"><thead><tr><th>疾病</th><th>正确</th><th>错误</th><th>掌握度</th><th>进度</th></tr></thead><tbody>${de.map(([id,st])=>{const t=st.correct+st.wrong,pct=Math.round(st.correct/t*100),grade=pct>=80?'🟢':pct>=50?'🟡':'🔴';return`<tr class="disease-stat-row"><td><strong>${st.name}</strong></td><td style="color:var(--success);">${st.correct}</td><td style="color:var(--error);">${st.wrong}</td><td>${grade} ${pct}%</td><td><div style="height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent),var(--success));border-radius:3px;transition:width 0.3s;"></div></div></td></tr>`;}).join('')}</tbody></table></div>`:''}<div class="section-title" style="font-size:1em;margin-top:20px;">💾 数据管理</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;"><button class="btn btn-primary" onclick="exportStats()" style="font-size:0.85em;">📥 导出学习数据</button><button class="btn btn-outline" onclick="document.getElementById('importFile').click()" style="font-size:0.85em;">📤 导入学习数据</button><button class="btn btn-danger" onclick="clearStats()" style="font-size:0.85em;">🗑️ 清除学习记录</button></div><input type="file" id="importFile" accept=".json" style="display:none;" onchange="importStats(event)">`;
+  updateStatusBar();
+}
+
+// ============================================================
+// WRONG BOOK (独立页面)
+// ============================================================
+function renderWrongBook(){
+  const s=loadStats(),container=document.getElementById('mainContent');
+  const wdi=[...new Set(s.wrongBook.map(w=>w.diseaseId).filter(Boolean))],wd=wdi.map(id=>DISEASES.find(d=>d.id===id)).filter(Boolean);
+  container.innerHTML=`
+    <div class="section-title">📝 错题本</div>
+    <div class="section-desc">答错的题目会自动记录在这里，方便针对性复习</div>
+    ${wd.length>0?`<div class="retry-box" style="text-align:center;margin-bottom:18px;padding:14px 16px;border-radius:12px;"><div style="font-weight:700;margin-bottom:6px;color:var(--warning-dark);">🎯 错题重练</div><div style="font-size:0.85em;color:var(--text-secondary);margin-bottom:8px;">${wd.length} 种疾病有错题</div><button class="btn btn-primary" onclick="startRetryPractice('mode1')" style="margin:3px;font-size:0.85em;">🛡️ 防护选择重练</button><button class="btn btn-success" onclick="startRetryPractice('mode2')" style="margin:3px;font-size:0.85em;">🦠 分类挑战重练</button></div>`:''}
+    ${s.wrongBook.length===0?`<div class="empty-state"><div class="empty-icon">🎉</div><div>还没有错题，继续保持！</div><div style="margin-top:8px;font-size:0.85em;color:var(--text-secondary);">去 <a href="javascript:switchTab('mode1')" style="color:var(--accent);text-decoration:underline;">防护选择</a> 或 <a href="javascript:switchTab('mode2')" style="color:var(--accent);text-decoration:underline;">分类挑战</a> 开始练习吧</div></div>`:`
+      <div style="margin-bottom:8px;color:var(--text-secondary);font-size:0.85em;">共 <b>${s.wrongBook.length}</b> 条错题记录（显示最近 50 条）</div>
+      <div class="wrong-list">
+        ${s.wrongBook.slice().reverse().slice(0,50).map((w,i)=>`
+          <div class="wrong-item">
+            <strong>#${s.wrongBook.length-i}</strong> · ${w.mode==='mode1'?'🛡️ 防护选择':w.mode==='mode2'?'🦠 分类挑战':'⚡ 快问快答'} · <span style="font-size:0.8em;color:var(--text-secondary);">${w.time}</span><br>
+            <strong>问题：</strong>${w.question}<br>
+            <strong>你的回答：</strong><span style="color:var(--error);">${w.userAnswer}</span><br>
+            <strong>正确答案：</strong><span class="correct-ans">${w.correctAnswer}</span>
+          </div>
+        `).join('')}
+      </div>
+    `}
+  `;
   updateStatusBar();
 }
 function clearStats(){if(confirm('确定要清除所有学习记录和错题本吗？此操作不可撤销！')){localStorage.removeItem('infection_game_stats');showToast('已清除所有学习记录','info');renderStats();}}
