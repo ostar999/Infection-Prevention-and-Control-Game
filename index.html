@@ -192,6 +192,15 @@ body {
 .sidebar-stats .stat-val { color: var(--accent); font-weight: 700; font-size: 1.05em; }
 .sidebar-stats .stat-val.combo { color: var(--warning-dark); }
 
+.sidebar-version {
+  margin-top: auto;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 0.72em;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
 .theme-select {
   padding: 4px 6px;
   border: 1.5px solid var(--border);
@@ -502,6 +511,8 @@ body.dark .knowledge-table tr:nth-child(even):hover td { background: var(--accen
       <div class="stat-row"><span class="stat-label">📝 答题</span><span id="globalTotal" style="font-weight:700;">0</span></div>
       <div class="stat-row"><span class="stat-label">✅ 正确率</span><span class="stat-val" id="globalAccuracy">-</span></div>
     </div>
+
+    <div class="sidebar-version">开发版测试中</div>
 
   </aside>
 
