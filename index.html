@@ -40,7 +40,7 @@
   --btn-primary-shadow: rgba(26,115,232,0.3);
   --btn-success-shadow: rgba(13,144,79,0.3);
   --tab-hover: #e8f0fe;
-  --sidebar-width: 260px;
+  --sidebar-width: 280px;
 }
 .theme-warm {
   --bg-gradient: linear-gradient(135deg, #fdf8f0 0%, #f5e6d0 50%, #fdf8f0 100%);
@@ -222,16 +222,17 @@ body {
   min-width: 0;
   padding: 20px 24px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-content {
   background: var(--card-bg);
   border-radius: 16px;
-  padding: 28px;
+  padding: 28px 36px;
   box-shadow: 0 2px 16px var(--shadow);
-  min-height: 400px;
-  max-width: 900px;
-  margin: 0 auto;
+  flex: 1;
+  width: 100%;
 }
 
 .section-title { text-align: center; font-size: 1.3em; margin-bottom: 8px; color: var(--accent); }
@@ -356,7 +357,7 @@ body {
 .stat-card { background: var(--surface-alt); border-radius: 12px; padding: 16px; text-align: center; }
 .stat-card .stat-num { font-size: 1.8em; font-weight: 700; color: var(--accent); }
 .stat-card .stat-title { font-size: 0.82em; color: var(--text-secondary); margin-top: 2px; }
-.wrong-list { max-height: 400px; overflow-y: auto; margin-top: 16px; }
+.wrong-list { overflow-y: auto; margin-top: 16px; flex: 1; min-height: 200px; }
 .wrong-item { background: var(--warning-light); border-left: 4px solid var(--warning); padding: 12px 16px; margin-bottom: 8px; border-radius: 0 8px 8px 0; font-size: 0.9em; line-height: 1.5; }
 .wrong-item .correct-ans { color: var(--success); font-weight: 600; }
 .retry-box { border: 2px solid var(--warning); background: var(--warning-light); }
@@ -415,6 +416,14 @@ body.dark .wrong-item { background: #2d2a18; }
 body.dark .knowledge-table th { background: var(--accent-dark); }
 body.dark .knowledge-table tr:nth-child(even) td { background: #1a1a2c; }
 body.dark .knowledge-table tr:nth-child(even):hover td { background: var(--accent-light); }
+
+/* ============================================================
+   RESPONSIVE — Large screens
+   ============================================================ */
+@media (min-width: 1400px) {
+  :root { --sidebar-width: 320px; }
+  .main-content { padding: 36px 48px; }
+}
 
 /* ============================================================
    RESPONSIVE — Stack on mobile
