@@ -86,6 +86,9 @@ body.dark {
   --card-bg: #1e1e32; --surface-bg: #1e1e32; --surface-alt: #252540;
   --text: #e0e0e0; --text-secondary: #9aa0a6; --border: #3c4043;
   --shadow: rgba(0,0,0,0.4); --tab-hover: #2a2a40;
+  --success-light: #1a3a2a; --success-dark: #6ecf8a;
+  --warning-light: #2d2a18; --warning-dark: #e0b848;
+  --accent-light: #1a2838;
 }
 
 /* ============================================================
@@ -119,8 +122,11 @@ body {
   border-right: 1px solid var(--border);
   box-shadow: 2px 0 16px var(--shadow);
   z-index: 10;
-  transition: background 0.4s ease, border-color 0.4s ease;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow-y: auto;
+  transition: background 0.4s ease, border-color 0.4s ease;
 }
 
 /* Sidebar brand */
@@ -356,9 +362,12 @@ body {
 .retry-box { border: 2px solid var(--warning); background: var(--warning-light); }
 
 /* Knowledge table */
-.knowledge-table-wrap { overflow-x: auto; margin-top: 16px; }
-.knowledge-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+.knowledge-table-wrap { overflow-x: auto; overflow-y: auto; max-height: calc(100vh - 200px); margin-top: 16px; border-radius: 8px; }
+.knowledge-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.85em; }
+.knowledge-table thead { position: sticky; top: 0; z-index: 2; }
 .knowledge-table th { background: var(--accent); color: #fff; padding: 10px 8px; text-align: left; white-space: nowrap; position: sticky; top: 0; }
+.knowledge-table th:first-child { border-radius: 8px 0 0 0; }
+.knowledge-table th:last-child { border-radius: 0 8px 0 0; }
 .knowledge-table td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.4; }
 .knowledge-table tr:hover td { background: var(--accent-light); }
 .knowledge-table tr:nth-child(even) td { background: var(--surface-bg); }
@@ -798,7 +807,7 @@ function importStats(event){const f=event.target.files[0];if(!f)return;const r=n
 // ============================================================
 function renderReference(){
   const container=document.getElementById('mainContent');
-  container.innerHTML=`<div class="section-title">📖 知识速查表</div><div class="section-desc">23种常见传染病的防护要求速查（源自培训教材）</div><div style="margin-bottom:12px;"><input type="text" id="searchRef" placeholder="🔍 搜索疾病名称..." oninput="filterReference()"></div><div class="knowledge-table-wrap"><table class="knowledge-table" id="refTable"><thead><tr><th>疾病名称</th><th>传播途径</th><th>隔离方式</th><th>基本防护要求</th><th>可选防护用品</th></tr></thead><tbody>${DISEASES.map(d=>`<tr data-search="${d.name}"><td><strong>${d.name}</strong></td><td>${d.transmission}</td><td>${d.isolation}</td><td>${d.basic.length>0?d.basic.map(p=>`<span style="background:var(--success-light);padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;font-size:0.8em;">${p}</span>`).join(' '):'<span style="color:#999;">—</span>'}</td><td>${d.optional.length>0?d.optional.map(p=>`<span style="background:var(--warning-light);padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;font-size:0.8em;">${p}</span>`).join(' '):'<span style="color:#999;">—</span>'}</td></tr>`).join('')}</tbody></table></div>`;
+  container.innerHTML=`<div class="section-title">📖 知识速查表</div><div class="section-desc">23种常见传染病的防护要求速查（源自培训教材）</div><div style="margin-bottom:12px;"><input type="text" id="searchRef" placeholder="🔍 搜索疾病名称..." oninput="filterReference()"></div><div class="knowledge-table-wrap"><table class="knowledge-table" id="refTable"><thead><tr><th>疾病名称</th><th>传播途径</th><th>隔离方式</th><th>基本防护要求</th><th>可选防护用品</th></tr></thead><tbody>${DISEASES.map(d=>`<tr data-search="${d.name}"><td><strong>${d.name}</strong></td><td>${d.transmission}</td><td>${d.isolation}</td><td>${d.basic.length>0?d.basic.map(p=>`<span style="background:var(--success-light);color:var(--success-dark);padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;font-size:0.8em;font-weight:600;">${p}</span>`).join(' '):'<span style="color:var(--text-secondary);">—</span>'}</td><td>${d.optional.length>0?d.optional.map(p=>`<span style="background:var(--warning-light);color:var(--warning-dark);padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;font-size:0.8em;font-weight:600;">${p}</span>`).join(' '):'<span style="color:var(--text-secondary);">—</span>'}</td></tr>`).join('')}</tbody></table></div>`;
   updateStatusBar();
 }
 function filterReference(){const q=document.getElementById('searchRef')?.value?.toLowerCase()||'';document.querySelectorAll('#refTable tbody tr').forEach(tr=>{tr.style.display=tr.dataset.search?.toLowerCase().includes(q)?'':'none';});}
