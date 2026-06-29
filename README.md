@@ -46,13 +46,11 @@
 
 ```
 ├── index.html       # 主应用（单文件，含 HTML/CSS/JS）
-├── README.md        # 项目说明文档（你正在看的这个文件）
-├── CLAUDE.md        # AI 编程助手指南，记录架构和开发要点
-├── .gitignore       # 告诉 Git 忽略哪些文件（详见下方说明）
-├── references/      # 参考资料
-│   └── 常见传染病和感染性疾病的防护要求.md   # 培训教材原文
-├── backups/         # 参考数据的备份文件（Excel/Word），不入仓库
-└── .venv/           # Python 虚拟环境（本地工具用），不入仓库
+├── README.md        # 项目说明文档
+├── CLAUDE.md        # AI 编程助手指南
+├── .gitignore       # Git 忽略规则
+└── references/      # 参考资料
+    └── 常见传染病和感染性疾病的防护要求.md   # 培训教材原文
 ```
 
 ### 文件说明
@@ -64,8 +62,6 @@
 | `CLAUDE.md` | 给 AI 编程助手的架构说明，普通人无需关注 | ✅ |
 | `.gitignore` | 列出 Git 应忽略的文件/文件夹 | ✅ |
 | `references/` | 培训教材原文，游戏数据来源 | ✅ |
-| `backups/` | Excel/Word 原始数据备份，开发时参考用 | ❌ |
-| `.venv/` | Python 虚拟环境，每人应自己创建 | ❌ |
 
 ### .gitignore 是什么？
 
