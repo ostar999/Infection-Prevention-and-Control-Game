@@ -5,645 +5,491 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🏥 传染病防护知识培训游戏</title>
 <style>
+/* ============================================================
+   THEME SYSTEM
+   ============================================================ */
+:root {
+  --bg-gradient: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 50%, #e8f0fe 100%);
+  --header-bg: linear-gradient(135deg, #1a73e8, #0d47a1);
+  --header-shadow: rgba(26,115,232,0.3);
+  --accent: #1a73e8;
+  --accent-dark: #0d47a1;
+  --accent-hover: #1557b0;
+  --accent-light: #e8f0fe;
+  --accent-lighter: #d2e3fc;
+  --accent-shadow: rgba(26,115,232,0.2);
+  --card-bg: #ffffff;
+  --surface-bg: #fafafa;
+  --surface-alt: #f8f9fa;
+  --text: #1a1a2e;
+  --text-secondary: #5f6368;
+  --border: #dadce0;
+  --shadow: rgba(0,0,0,0.06);
+  --success: #0d904f;
+  --success-light: #ceead6;
+  --success-dark: #0a7a3f;
+  --success-shadow: rgba(13,144,79,0.2);
+  --error: #d93025;
+  --error-light: #fce8e6;
+  --error-dark: #b3261e;
+  --error-shadow: rgba(217,48,37,0.2);
+  --warning: #f9ab00;
+  --warning-light: #fef7e0;
+  --warning-dark: #e37400;
+  --warning-shadow: rgba(249,171,0,0.2);
+  --btn-primary-shadow: rgba(26,115,232,0.3);
+  --btn-success-shadow: rgba(13,144,79,0.3);
+  --tab-hover: #e8f0fe;
+  --sidebar-width: 260px;
+}
+.theme-warm {
+  --bg-gradient: linear-gradient(135deg, #fdf8f0 0%, #f5e6d0 50%, #fdf8f0 100%);
+  --header-bg: linear-gradient(135deg, #8B6914, #6B4F12);
+  --header-shadow: rgba(139,105,20,0.3);
+  --accent: #8B6914; --accent-dark: #6B4F12; --accent-hover: #7A5C10;
+  --accent-light: #fdf6ed; --accent-lighter: #f5e6d0; --accent-shadow: rgba(139,105,20,0.2);
+  --card-bg: #fffefb; --surface-bg: #faf7f2; --surface-alt: #f8f4ed;
+  --text: #2c2416; --text-secondary: #8c7a5c; --border: #e0d5c0; --shadow: rgba(0,0,0,0.06);
+  --success: #5c8a4a; --success-light: #e8f0e0; --success-dark: #4a7038; --success-shadow: rgba(92,138,74,0.2);
+  --error: #c1554b; --error-light: #fae8e5; --error-dark: #a04038; --error-shadow: rgba(193,85,75,0.2);
+  --warning: #c49b38; --warning-light: #fdf5e6; --warning-dark: #b8860b; --warning-shadow: rgba(196,155,56,0.2);
+  --btn-primary-shadow: rgba(139,105,20,0.3); --btn-success-shadow: rgba(92,138,74,0.3); --tab-hover: #fdf6ed;
+}
+.theme-forest {
+  --bg-gradient: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #e8f5e9 100%);
+  --header-bg: linear-gradient(135deg, #2e7d32, #1b5e20);
+  --header-shadow: rgba(46,125,50,0.3);
+  --accent: #2e7d32; --accent-dark: #1b5e20; --accent-hover: #256b28;
+  --accent-light: #e8f5e9; --accent-lighter: #c8e6c9; --accent-shadow: rgba(46,125,50,0.2);
+  --card-bg: #ffffff; --surface-bg: #f5faf5; --surface-alt: #f0f7f0;
+  --text: #1a2e1a; --text-secondary: #5c6b5c; --border: #c8d8c8; --shadow: rgba(0,0,0,0.06);
+  --success: #2e7d32; --success-light: #c8e6c9; --success-dark: #1b5e20; --success-shadow: rgba(46,125,50,0.2);
+  --error: #c5554b; --error-light: #fae8e5; --error-dark: #a04038; --error-shadow: rgba(197,85,75,0.2);
+  --warning: #e8950c; --warning-light: #fef4e0; --warning-dark: #c47a08; --warning-shadow: rgba(232,149,12,0.2);
+  --btn-primary-shadow: rgba(46,125,50,0.3); --btn-success-shadow: rgba(46,125,50,0.3); --tab-hover: #e8f5e9;
+}
+.theme-purple {
+  --bg-gradient: linear-gradient(135deg, #f3e8f7 0%, #e1d0f0 50%, #f3e8f7 100%);
+  --header-bg: linear-gradient(135deg, #7b2d8b, #5c1d6e);
+  --header-shadow: rgba(123,45,139,0.3);
+  --accent: #7b2d8b; --accent-dark: #5c1d6e; --accent-hover: #6a2578;
+  --accent-light: #f3e8f7; --accent-lighter: #e1d0f0; --accent-shadow: rgba(123,45,139,0.2);
+  --card-bg: #ffffff; --surface-bg: #faf7fc; --surface-alt: #f5f0f8;
+  --text: #1e1a2e; --text-secondary: #6b5c7b; --border: #d8d0e0; --shadow: rgba(0,0,0,0.06);
+  --success: #5c8a6a; --success-light: #e0f0e5; --success-dark: #4a7058; --success-shadow: rgba(92,138,106,0.2);
+  --error: #c1555b; --error-light: #fae5e8; --error-dark: #a04048; --error-shadow: rgba(193,85,91,0.2);
+  --warning: #c49b38; --warning-light: #fdf5e6; --warning-dark: #b8860b; --warning-shadow: rgba(196,155,56,0.2);
+  --btn-primary-shadow: rgba(123,45,139,0.3); --btn-success-shadow: rgba(92,138,106,0.3); --tab-hover: #f3e8f7;
+}
+body.dark {
+  --bg-gradient: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+  --card-bg: #1e1e32; --surface-bg: #1e1e32; --surface-alt: #252540;
+  --text: #e0e0e0; --text-secondary: #9aa0a6; --border: #3c4043;
+  --shadow: rgba(0,0,0,0.4); --tab-hover: #2a2a40;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 50%, #e8f0fe 100%);
+  background: var(--bg-gradient);
   min-height: 100vh;
-  color: #1a1a2e;
+  color: var(--text);
+  transition: background 0.4s ease, color 0.3s ease;
 }
+
+/* ============================================================
+   LAYOUT: Sidebar + Main
+   ============================================================ */
 .container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 16px;
-}
-/* Header */
-.header {
-  background: linear-gradient(135deg, #1a73e8, #0d47a1);
-  color: #fff;
-  text-align: center;
-  padding: 20px 24px;
-  border-radius: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 20px rgba(26,115,232,0.3);
-}
-.header h1 { font-size: 1.8em; margin-bottom: 4px; }
-.header .subtitle { font-size: 0.9em; opacity: 0.9; }
-/* Tabs */
-.tabs {
   display: flex;
-  gap: 6px;
-  background: #fff;
-  border-radius: 14px;
-  padding: 6px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  flex-wrap: wrap;
+  min-height: 100vh;
+  gap: 0;
 }
-.tab-btn {
-  flex: 1;
-  min-width: 80px;
-  padding: 12px 8px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.9em;
-  font-weight: 600;
-  transition: all 0.25s;
-  background: transparent;
-  color: #5f6368;
-}
-.tab-btn:hover { background: #e8f0fe; color: #1a73e8; }
-.tab-btn.active {
-  background: linear-gradient(135deg, #1a73e8, #0d47a1);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(26,115,232,0.3);
-}
-/* Status Bar */
-.status-bar {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  background: #fff;
-  border-radius: 14px;
-  padding: 12px 20px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  flex-wrap: wrap;
-}
-.status-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
-  font-size: 0.95em;
-}
-.status-item .icon { font-size: 1.2em; }
-.score-val { color: #1a73e8; }
-.combo-val { color: #e37400; }
-.life-val { color: #d93025; }
-.timer-val { color: #0d904f; }
-/* Main Content */
-.main-content {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-  min-height: 400px;
-}
-.section-title {
-  text-align: center;
-  font-size: 1.3em;
-  margin-bottom: 8px;
-  color: #1a73e8;
-}
-.section-desc {
-  text-align: center;
-  color: #5f6368;
-  margin-bottom: 20px;
-  font-size: 0.9em;
-}
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 28px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 600;
-  transition: all 0.25s;
-}
-.btn-primary {
-  background: linear-gradient(135deg, #1a73e8, #1557b0);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(26,115,232,0.3);
-}
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,115,232,0.4); }
-.btn-success {
-  background: linear-gradient(135deg, #0d904f, #0a7a3f);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(13,144,79,0.3);
-}
-.btn-success:hover { transform: translateY(-1px); }
-.btn-danger {
-  background: linear-gradient(135deg, #d93025, #b3261e);
-  color: #fff;
-}
-.btn-outline {
-  background: #fff;
-  color: #1a73e8;
-  border: 2px solid #1a73e8;
-}
-.btn-outline:hover { background: #e8f0fe; }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
-/* Disease Card */
-.disease-card {
-  background: linear-gradient(135deg, #e8f0fe, #d2e3fc);
-  border: 2px solid #1a73e8;
-  border-radius: 14px;
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 20px;
-  animation: fadeInUp 0.4s ease;
-}
-.disease-card .disease-name {
-  font-size: 1.6em;
-  font-weight: 700;
-  color: #1a73e8;
-  margin-bottom: 8px;
-}
-.disease-card .disease-info {
-  font-size: 0.9em;
-  color: #5f6368;
-}
-.disease-card .hint-text {
-  font-size: 0.85em;
-  color: #e37400;
-  margin-top: 6px;
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-/* PPE Grid - Mode 1 */
-.ppe-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.ppe-item {
+
+/* ---- Sidebar ---- */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background: var(--card-bg);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 14px 8px;
-  border: 2px solid #dadce0;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: #fafafa;
-  user-select: none;
+  border-right: 1px solid var(--border);
+  box-shadow: 2px 0 16px var(--shadow);
+  z-index: 10;
+  transition: background 0.4s ease, border-color 0.4s ease;
+  overflow-y: auto;
 }
-.ppe-item:hover { border-color: #1a73e8; background: #e8f0fe; }
-.ppe-item.selected {
-  border-color: #1a73e8;
-  background: #d2e3fc;
-  box-shadow: 0 0 0 3px rgba(26,115,232,0.2);
-  transform: scale(1.03);
+
+/* Sidebar brand */
+.sidebar-brand {
+  padding: 20px 16px 14px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
 }
-.ppe-item.correct {
-  border-color: #0d904f;
-  background: #ceead6;
-  box-shadow: 0 0 0 3px rgba(13,144,79,0.2);
+.sidebar-brand .brand-icon { font-size: 2.2em; margin-bottom: 4px; }
+.sidebar-brand h1 { font-size: 1.1em; font-weight: 700; color: var(--accent); }
+.sidebar-brand .subtitle { font-size: 0.7em; color: var(--text-secondary); margin-top: 2px; line-height: 1.3; }
+.sidebar-brand .brand-controls {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--border);
 }
-.ppe-item.wrong {
-  border-color: #d93025;
-  background: #fce8e6;
-  box-shadow: 0 0 0 3px rgba(217,48,37,0.2);
-  animation: shake 0.5s ease;
-}
-.ppe-item.missed {
-  border-color: #f9ab00;
-  background: #fef7e0;
-  box-shadow: 0 0 0 3px rgba(249,171,0,0.2);
-}
-.ppe-item .ppe-icon { font-size: 2em; }
-.ppe-item .ppe-name { font-size: 0.8em; font-weight: 600; text-align: center; line-height: 1.2; }
-.ppe-item .ppe-tag { font-size: 0.75em; color: #5f6368; }
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
-}
-/* Mode 2 - Classification */
-.classify-area {
+.sidebar-brand .theme-select { flex: 1; }
+.sidebar-brand .dark-toggle-sidebar { flex-shrink: 0; }
+
+/* Sidebar nav */
+.sidebar-nav {
+  padding: 12px 12px 8px;
   display: flex;
-  gap: 16px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 3px;
 }
-.current-disease-area {
-  flex: 0 0 100%;
-  margin-bottom: 8px;
+.sidebar-nav .nav-label {
+  font-size: 0.7em; font-weight: 700; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 8px 8px 4px;
 }
-.category-buckets {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+.nav-btn {
+  display: flex; align-items: center; gap: 10px;
   width: 100%;
-}
-@media (max-width: 700px) {
-  .category-buckets { grid-template-columns: repeat(2, 1fr); }
-}
-.category-bucket {
-  border: 2px dashed #dadce0;
-  border-radius: 12px;
-  padding: 16px 10px;
-  text-align: center;
+  padding: 10px 12px;
+  border: none; border-radius: 10px;
   cursor: pointer;
+  font-size: 0.88em; font-weight: 600;
+  font-family: inherit;
+  background: transparent;
+  color: var(--text-secondary);
   transition: all 0.25s;
-  min-height: 80px;
+  text-align: left;
+}
+.nav-btn:hover { background: var(--tab-hover); color: var(--accent); }
+.nav-btn.active { background: var(--header-bg); color: #fff; box-shadow: 0 2px 8px var(--header-shadow); }
+.nav-btn .nav-icon { font-size: 1.1em; flex-shrink: 0; }
+
+/* Sidebar stats */
+.sidebar-stats {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+  gap: 6px;
 }
-.category-bucket:hover {
-  border-color: #1a73e8;
-  background: #e8f0fe;
-  transform: translateY(-2px);
+.sidebar-stats .stat-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.82em; font-weight: 600;
 }
-.category-bucket .bucket-icon { font-size: 1.8em; }
-.category-bucket .bucket-name { font-size: 0.85em; font-weight: 600; }
-.category-bucket .bucket-count { font-size: 0.75em; color: #5f6368; }
-.category-bucket.correct-flash {
-  border-color: #0d904f;
-  background: #ceead6;
-  animation: popIn 0.4s ease;
-}
-.category-bucket.wrong-flash {
-  border-color: #d93025;
-  background: #fce8e6;
-  animation: shake 0.5s ease;
-}
-@keyframes popIn {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
-/* Mode 3 - Quiz */
-.quiz-question {
-  font-size: 1.15em;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 20px;
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  line-height: 1.6;
-}
-.options-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.option-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 2px solid #dadce0;
-  border-radius: 12px;
+.sidebar-stats .stat-label { color: var(--text-secondary); }
+.sidebar-stats .stat-val { color: var(--accent); font-weight: 700; font-size: 1.05em; }
+.sidebar-stats .stat-val.combo { color: var(--warning-dark); }
+
+.theme-select {
+  padding: 4px 6px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-bg);
+  color: var(--text);
+  font-size: 0.82em;
+  font-family: inherit;
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.95em;
+  outline: none;
 }
-.option-item:hover { border-color: #1a73e8; background: #e8f0fe; }
-.option-item.selected-option {
-  border-color: #1a73e8;
-  background: #d2e3fc;
-}
-.option-item.correct-answer {
-  border-color: #0d904f;
-  background: #ceead6;
-}
-.option-item.wrong-answer {
-  border-color: #d93025;
-  background: #fce8e6;
-  animation: shake 0.5s ease;
-}
-.option-letter {
+.dark-toggle-sidebar {
   width: 32px; height: 32px;
   border-radius: 50%;
-  background: #e8f0fe;
-  color: #1a73e8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
+  border: 1.5px solid var(--border);
+  background: var(--surface-bg);
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.25s;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.option-item.selected-option .option-letter { background: #1a73e8; color: #fff; }
-.option-item.correct-answer .option-letter { background: #0d904f; color: #fff; }
-.option-item.wrong-answer .option-letter { background: #d93025; color: #fff; }
-/* Question Type Badge */
-.question-type {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8em;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-.qtype-single { background: #e8f0fe; color: #1a73e8; }
-.qtype-truefalse { background: #fef7e0; color: #e37400; }
-.qtype-multi { background: #ceead6; color: #0d904f; }
-/* Result Screen */
-.result-screen {
-  text-align: center;
-  padding: 30px 20px;
-  animation: fadeInUp 0.5s ease;
-}
-.result-score {
-  font-size: 4em;
-  font-weight: 800;
-  background: linear-gradient(135deg, #1a73e8, #0d47a1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.result-stats {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
-.result-stat {
-  text-align: center;
-}
-.result-stat .stat-val { font-size: 1.8em; font-weight: 700; color: #1a73e8; }
-.result-stat .stat-label { font-size: 0.85em; color: #5f6368; }
-.result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
-/* Wrong Questions Review */
-.wrong-list {
-  max-height: 400px;
+.dark-toggle-sidebar:hover { background: var(--tab-hover); border-color: var(--accent); }
+
+/* ---- Main Area ---- */
+.main-area {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px;
   overflow-y: auto;
-  margin-top: 16px;
 }
-.wrong-item {
-  background: #fef7e0;
-  border-left: 4px solid #f9ab00;
-  padding: 12px 16px;
-  margin-bottom: 8px;
-  border-radius: 0 8px 8px 0;
-  font-size: 0.9em;
-  line-height: 1.5;
+
+.main-content {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 16px var(--shadow);
+  min-height: 400px;
+  max-width: 900px;
+  margin: 0 auto;
 }
-.wrong-item .correct-ans { color: #0d904f; font-weight: 600; }
-/* Stats Panel */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.stat-card {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-}
-.stat-card .stat-num { font-size: 2em; font-weight: 700; color: #1a73e8; }
-.stat-card .stat-title { font-size: 0.85em; color: #5f6368; margin-top: 4px; }
-/* Knowledge Table */
-.knowledge-table-wrap { overflow-x: auto; margin-top: 16px; }
-.knowledge-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85em;
-}
-.knowledge-table th {
-  background: #1a73e8;
-  color: #fff;
-  padding: 10px 8px;
-  text-align: left;
-  white-space: nowrap;
-  position: sticky;
-  top: 0;
-}
-.knowledge-table td {
-  padding: 8px;
-  border-bottom: 1px solid #dadce0;
-  vertical-align: top;
-  line-height: 1.4;
-}
-.knowledge-table tr:hover td { background: #e8f0fe; }
-.knowledge-table tr:nth-child(even) td { background: #fafafa; }
-.knowledge-table tr:nth-child(even):hover td { background: #e8f0fe; }
-/* Feedback Toast */
-.toast {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 12px 24px;
-  border-radius: 10px;
-  font-weight: 600;
-  color: #fff;
-  z-index: 1000;
-  animation: toastIn 0.3s ease, toastOut 0.3s ease 1.5s forwards;
-  pointer-events: none;
-}
-.toast-success { background: #0d904f; }
-.toast-error { background: #d93025; }
-.toast-info { background: #1a73e8; }
-@keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-@keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
-/* Progress Bar */
-.progress-bar-wrap {
-  background: #e8e8e8;
-  border-radius: 10px;
-  height: 8px;
-  margin-bottom: 16px;
-  overflow: hidden;
-}
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #1a73e8, #0d904f);
-  border-radius: 10px;
-  transition: width 0.3s ease;
-}
-/* Timer Bar */
-.timer-bar-wrap {
-  background: #e8e8e8;
-  border-radius: 10px;
-  height: 6px;
-  margin-bottom: 16px;
-  overflow: hidden;
-}
-.timer-bar-fill {
-  height: 100%;
-  background: #0d904f;
-  border-radius: 10px;
-  transition: width 0.1s linear;
-}
-.timer-bar-fill.warning { background: #f9ab00; }
-.timer-bar-fill.danger { background: #d93025; }
-/* Start Screen */
-.start-screen {
-  text-align: center;
-  padding: 30px 20px;
-  animation: fadeInUp 0.5s ease;
-}
-.start-icon { font-size: 4em; margin-bottom: 16px; }
-.start-title { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
-.start-desc { color: #5f6368; margin-bottom: 20px; line-height: 1.6; }
-/* Combo Animation */
-.combo-pop {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2em;
-  font-weight: 800;
-  color: #e37400;
-  pointer-events: none;
-  z-index: 999;
-  animation: comboUp 1s ease forwards;
-}
-@keyframes comboUp {
-  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -80%) scale(1.5); }
-}
-/* Empty state */
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: #5f6368;
-}
-.empty-state .empty-icon { font-size: 3em; margin-bottom: 12px; }
-.hidden { display: none !important; }
-/* Timer Toggle */
-.timer-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 14px;
-  border: 2px solid #dadce0;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.82em;
-  font-weight: 600;
-  background: #f8f9fa;
-  color: #5f6368;
+
+.section-title { text-align: center; font-size: 1.3em; margin-bottom: 8px; color: var(--accent); }
+.section-desc { text-align: center; color: var(--text-secondary); margin-bottom: 20px; font-size: 0.9em; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 12px 28px; border: none; border-radius: 10px;
+  cursor: pointer; font-size: 1em; font-weight: 600; font-family: inherit;
   transition: all 0.25s;
 }
-.timer-toggle:hover { border-color: #e37400; color: #e37400; background: #fef7e0; }
-body.dark .timer-toggle { background: #1e1e32; border-color: #333; color: #999; }
-body.dark .timer-toggle:hover { border-color: #f0a040; color: #f0a040; background: #2d2a18; }
-/* Dark Mode Toggle */
-.dark-toggle {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-  font-size: 1.2em;
-  cursor: pointer;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-  backdrop-filter: blur(8px);
+.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: #fff; box-shadow: 0 2px 8px var(--btn-primary-shadow); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px var(--btn-primary-shadow); }
+.btn-success { background: linear-gradient(135deg, var(--success), var(--success-dark)); color: #fff; box-shadow: 0 2px 8px var(--btn-success-shadow); }
+.btn-success:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-danger { background: linear-gradient(135deg, var(--error), var(--error-dark)); color: #fff; }
+.btn-outline { background: var(--card-bg); color: var(--accent); border: 2px solid var(--accent); }
+.btn-outline:hover { background: var(--accent-light); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+/* ============================================================
+   DISEASE CARD
+   ============================================================ */
+.disease-card {
+  background: linear-gradient(135deg, var(--accent-light), var(--accent-lighter));
+  border: 2px solid var(--accent);
+  border-radius: 14px; padding: 20px;
+  text-align: center; margin-bottom: 20px;
+  animation: fadeInUp 0.4s ease;
 }
-.dark-toggle:hover { background: rgba(255,255,255,0.25); border-color: #fff; transform: scale(1.08); }
-/* Dark Mode Overrides */
-body.dark {
-  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
-  color: #e0e0e0;
+.disease-card .disease-name { font-size: 1.6em; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.disease-card .disease-info { font-size: 0.9em; color: var(--text-secondary); }
+.disease-card .hint-text { font-size: 0.85em; color: var(--warning-dark); margin-top: 6px; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============================================================
+   PPE GRID — Mode 1
+   ============================================================ */
+.ppe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.ppe-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 14px 8px; border: 2px solid var(--border); border-radius: 12px;
+  cursor: pointer; transition: all 0.2s; background: var(--surface-bg); user-select: none;
 }
-body.dark .header { background: linear-gradient(135deg, #2d5aa0, #143066); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-body.dark .tabs,
-body.dark .status-bar,
-body.dark .main-content { background: #1e1e32; color: #e0e0e0; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
-body.dark .tab-btn { color: #999; }
-body.dark .tab-btn:hover { background: #2a2a40; color: #8ab4f8; }
-body.dark .tab-btn.active { background: linear-gradient(135deg, #2d5aa0, #1a3a6e); }
-body.dark .disease-card { background: linear-gradient(135deg, #1e1e32, #2a2a40); border-color: #4a6fa5; }
-body.dark .disease-card .disease-name { color: #8ab4f8; }
-body.dark .disease-card .disease-info { color: #999; }
-body.dark .disease-card .hint-text { color: #f0a040; }
-body.dark .ppe-item { background: #1e1e32; border-color: #333; }
-body.dark .ppe-item:hover { border-color: #4a6fa5; background: #2a2a40; }
-body.dark .ppe-item.selected { border-color: #4a6fa5; background: #1a3050; }
-body.dark .section-title { color: #8ab4f8; }
-body.dark .section-desc { color: #999; }
-body.dark .category-bucket { border-color: #333; }
-body.dark .category-bucket:hover { border-color: #4a6fa5; background: #2a2a40; }
-body.dark .quiz-question { background: #1e1e32; }
-body.dark .option-item { border-color: #333; }
-body.dark .option-item:hover { border-color: #4a6fa5; background: #2a2a40; }
-body.dark .option-letter { background: #2a2a40; color: #8ab4f8; }
-body.dark .option-item.selected-option { background: #1a3050; border-color: #4a6fa5; }
-body.dark .option-item.selected-option .option-letter { background: #2d5aa0; color: #fff; }
-body.dark .stat-card { background: #1e1e32; }
-body.dark .stat-card .stat-num { color: #8ab4f8; }
-body.dark .stat-card .stat-title { color: #999; }
-body.dark .knowledge-table th { background: #2d5aa0; }
-body.dark .knowledge-table td { border-color: #333; }
-body.dark .knowledge-table tr:nth-child(even) td { background: #1a1a2c; }
-body.dark .knowledge-table tr:hover td { background: #2a2a40; }
-body.dark .knowledge-table tr:nth-child(even):hover td { background: #2a2a40; }
-body.dark .wrong-item { background: #2d2a18; }
-body.dark .btn-outline { background: #1e1e32; color: #8ab4f8; border-color: #4a6fa5; }
-body.dark .btn-outline:hover { background: #2a2a40; }
-body.dark .empty-state { color: #999; }
-body.dark .empty-state .empty-icon { opacity: 0.6; }
+.ppe-item:hover { border-color: var(--accent); background: var(--accent-light); }
+.ppe-item.selected { border-color: var(--accent); background: var(--accent-lighter); box-shadow: 0 0 0 3px var(--accent-shadow); transform: scale(1.03); }
+.ppe-item.correct { border-color: var(--success); background: var(--success-light); box-shadow: 0 0 0 3px var(--success-shadow); }
+.ppe-item.wrong { border-color: var(--error); background: var(--error-light); box-shadow: 0 0 0 3px var(--error-shadow); animation: shake 0.5s ease; }
+.ppe-item.missed { border-color: var(--warning); background: var(--warning-light); box-shadow: 0 0 0 3px var(--warning-shadow); }
+.ppe-item .ppe-icon { font-size: 2em; }
+.ppe-item .ppe-name { font-size: 0.8em; font-weight: 600; text-align: center; line-height: 1.2; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); } 40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); } 80% { transform: translateX(4px); }
+}
+
+/* ============================================================
+   CATEGORY BUCKETS — Mode 2
+   ============================================================ */
+.category-buckets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
+@media (max-width: 500px) { .category-buckets { grid-template-columns: repeat(2, 1fr); } }
+.category-bucket {
+  border: 2px dashed var(--border); border-radius: 12px; padding: 16px 10px;
+  text-align: center; cursor: pointer; transition: all 0.25s; min-height: 80px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.category-bucket:hover { border-color: var(--accent); background: var(--accent-light); transform: translateY(-2px); }
+.category-bucket .bucket-icon { font-size: 1.8em; }
+.category-bucket .bucket-name { font-size: 0.85em; font-weight: 600; }
+.category-bucket .bucket-count { font-size: 0.75em; color: var(--text-secondary); }
+.category-bucket.correct-flash { border-color: var(--success); background: var(--success-light); animation: popIn 0.4s ease; }
+.category-bucket.wrong-flash { border-color: var(--error); background: var(--error-light); animation: shake 0.5s ease; }
+@keyframes popIn { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+/* ============================================================
+   QUIZ — Mode 3
+   ============================================================ */
+.quiz-question { font-size: 1.15em; font-weight: 600; text-align: center; margin-bottom: 20px; padding: 16px; background: var(--surface-alt); border-radius: 12px; line-height: 1.6; }
+.options-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.option-item {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  border: 2px solid var(--border); border-radius: 12px; cursor: pointer;
+  transition: all 0.2s; font-size: 0.95em;
+}
+.option-item:hover { border-color: var(--accent); background: var(--accent-light); }
+.option-item.selected-option { border-color: var(--accent); background: var(--accent-lighter); }
+.option-item.correct-answer { border-color: var(--success); background: var(--success-light); }
+.option-item.wrong-answer { border-color: var(--error); background: var(--error-light); animation: shake 0.5s ease; }
+.option-letter {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--accent-light); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; flex-shrink: 0;
+}
+.option-item.selected-option .option-letter { background: var(--accent); color: #fff; }
+.option-item.correct-answer .option-letter { background: var(--success); color: #fff; }
+.option-item.wrong-answer .option-letter { background: var(--error); color: #fff; }
+.question-type { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; margin-bottom: 12px; }
+.qtype-single { background: var(--accent-light); color: var(--accent); }
+.qtype-truefalse { background: var(--warning-light); color: var(--warning-dark); }
+.qtype-multi { background: var(--success-light); color: var(--success); }
+
+/* ============================================================
+   RESULT SCREEN
+   ============================================================ */
+.result-screen { text-align: center; padding: 30px 20px; animation: fadeInUp 0.5s ease; }
+.result-score { font-size: 4em; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.result-stats { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 20px 0; }
+.result-stat { text-align: center; }
+.result-stat .stat-val { font-size: 1.8em; font-weight: 700; color: var(--accent); }
+.result-stat .stat-label { font-size: 0.85em; color: var(--text-secondary); }
+.result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+
+/* ============================================================
+   STATS PANEL
+   ============================================================ */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.stat-card { background: var(--surface-alt); border-radius: 12px; padding: 16px; text-align: center; }
+.stat-card .stat-num { font-size: 1.8em; font-weight: 700; color: var(--accent); }
+.stat-card .stat-title { font-size: 0.82em; color: var(--text-secondary); margin-top: 2px; }
+.wrong-list { max-height: 400px; overflow-y: auto; margin-top: 16px; }
+.wrong-item { background: var(--warning-light); border-left: 4px solid var(--warning); padding: 12px 16px; margin-bottom: 8px; border-radius: 0 8px 8px 0; font-size: 0.9em; line-height: 1.5; }
+.wrong-item .correct-ans { color: var(--success); font-weight: 600; }
+.retry-box { border: 2px solid var(--warning); background: var(--warning-light); }
+
+/* Knowledge table */
+.knowledge-table-wrap { overflow-x: auto; margin-top: 16px; }
+.knowledge-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+.knowledge-table th { background: var(--accent); color: #fff; padding: 10px 8px; text-align: left; white-space: nowrap; position: sticky; top: 0; }
+.knowledge-table td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.4; }
+.knowledge-table tr:hover td { background: var(--accent-light); }
+.knowledge-table tr:nth-child(even) td { background: var(--surface-bg); }
+.knowledge-table tr:nth-child(even):hover td { background: var(--accent-light); }
+
+/* ============================================================
+   TOAST & COMBO
+   ============================================================ */
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); padding: 12px 24px; border-radius: 10px; font-weight: 600; color: #fff; z-index: 1000; animation: toastIn 0.3s ease, toastOut 0.3s ease 1.5s forwards; pointer-events: none; }
+.toast-success { background: var(--success); }
+.toast-error { background: var(--error); }
+.toast-info { background: var(--accent); }
+@keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
+
+.combo-pop { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2em; font-weight: 800; color: var(--warning-dark); pointer-events: none; z-index: 999; animation: comboUp 1s ease forwards; }
+@keyframes comboUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -80%) scale(1.5); } }
+
+/* ============================================================
+   PROGRESS & TIMER
+   ============================================================ */
+.progress-bar-wrap { background: #e8e8e8; border-radius: 10px; height: 8px; margin-bottom: 16px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--success)); border-radius: 10px; transition: width 0.3s ease; }
+.timer-bar-wrap { background: #e8e8e8; border-radius: 10px; height: 6px; margin-bottom: 16px; overflow: hidden; }
+.timer-bar-fill { height: 100%; background: var(--success); border-radius: 10px; transition: width 0.1s linear; }
+.timer-bar-fill.warning { background: var(--warning); }
+.timer-bar-fill.danger { background: var(--error); }
+.timer-toggle { display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border: 2px solid var(--border); border-radius: 20px; cursor: pointer; font-size: 0.82em; font-weight: 600; font-family: inherit; background: var(--surface-alt); color: var(--text-secondary); transition: all 0.25s; }
+.timer-toggle:hover { border-color: var(--warning-dark); color: var(--warning-dark); background: var(--warning-light); }
+
+/* ============================================================
+   EMPTY STATE & HELPERS
+   ============================================================ */
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
+.empty-state .empty-icon { font-size: 3em; margin-bottom: 12px; }
+.hidden { display: none !important; }
+#searchRef { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.95em; background: var(--card-bg); color: var(--text); outline: none; font-family: inherit; }
+#searchRef:focus { border-color: var(--accent); }
+#searchRef::placeholder { color: var(--text-secondary); }
+
+/* Dark mode extras */
 body.dark .progress-bar-wrap,
 body.dark .timer-bar-wrap { background: #333; }
-body.dark .result-score {
-  background: linear-gradient(135deg, #8ab4f8, #5a8fd0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+body.dark .wrong-item { background: #2d2a18; }
+body.dark .knowledge-table th { background: var(--accent-dark); }
+body.dark .knowledge-table tr:nth-child(even) td { background: #1a1a2c; }
+body.dark .knowledge-table tr:nth-child(even):hover td { background: var(--accent-light); }
+
+/* ============================================================
+   RESPONSIVE — Stack on mobile
+   ============================================================ */
+@media (max-width: 768px) {
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; flex-shrink: 1; border-right: none; border-bottom: 1px solid var(--border); box-shadow: 0 2px 8px var(--shadow); }
+  .sidebar-brand { padding: 12px 16px 8px; text-align: left; display: flex; align-items: center; gap: 10px; }
+  .sidebar-brand .brand-icon { font-size: 1.5em; margin: 0; }
+  .sidebar-brand h1 { font-size: 1em; }
+  .sidebar-brand .subtitle { display: none; }
+  .sidebar-nav { flex-direction: row; flex-wrap: wrap; padding: 8px; gap: 4px; }
+  .sidebar-nav .nav-label { display: none; }
+  .nav-btn { width: auto; padding: 6px 10px; font-size: 0.78em; }
+  .sidebar-stats { flex-direction: row; flex-wrap: wrap; gap: 12px; padding: 8px 12px; }
+  .sidebar-stats .stat-row { gap: 4px; font-size: 0.75em; }
+  .sidebar-brand .brand-controls { margin-top: 6px; padding-top: 6px; }
+  .main-area { padding: 12px 10px; }
+  .main-content { padding: 16px 12px; border-radius: 12px; }
+  .ppe-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+  .result-score { font-size: 2.5em; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
-body.dark .dark-toggle { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
-body.dark .dark-toggle:hover { background: rgba(255,255,255,0.18); }
-body.dark #searchRef { background: #1e1e32; color: #e0e0e0; border-color: #333; }
-body.dark .result-stat .stat-val { color: #8ab4f8; }
-body.dark .result-stat .stat-label { color: #999; }
-body.dark .status-item { color: #ccc; }
-/* Disease Stats Table in Dark */
-body.dark .disease-stat-row:hover { background: #2a2a40; }
-body.dark .mini-bar-bg { background: #333; }
-body.dark .retry-box { background: linear-gradient(135deg, #2d2a18, #2d1a1a) !important; border-color: #8a6d00 !important; }
-body.dark .retry-box .retry-desc { color: #999; }
 </style>
 </head>
 <body>
 <div class="container">
-  <!-- Dark Mode Toggle -->
-  <button class="dark-toggle" id="darkToggle" onclick="toggleDarkMode()" aria-label="切换暗色模式">🌙</button>
+  <!-- ============================================================
+       LEFT SIDEBAR
+       ============================================================ -->
+  <aside class="sidebar">
+    <!-- Brand -->
+    <div class="sidebar-brand">
+      <div class="brand-icon">🏥</div>
+      <h1>传染病防护知识培训</h1>
+      <div class="subtitle">23种传染病 · 3种训练模式</div>
+      <div class="brand-controls">
+        <select class="theme-select" id="themeSelect" onchange="setTheme(this.value)">
+          <option value="">默认蓝</option>
+          <option value="warm">暖金</option>
+          <option value="forest">森绿</option>
+          <option value="purple">暗紫</option>
+        </select>
+        <button class="dark-toggle-sidebar" id="darkToggle" onclick="toggleDarkMode()" aria-label="切换暗色模式">🌙</button>
+      </div>
+    </div>
 
-  <!-- Header -->
-  <div class="header">
-    <h1>🏥 传染病防护知识培训游戏</h1>
-    <div class="subtitle">基于《常见传染病和感染性疾病的防护要求》· 23种传染病 · 3种训练模式</div>
-  </div>
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+      <div class="nav-label">训练模式</div>
+      <button class="nav-btn active" data-tab="mode1" onclick="switchTab('mode1')">
+        <span class="nav-icon">🛡️</span> 防护装备选择
+      </button>
+      <button class="nav-btn" data-tab="mode2" onclick="switchTab('mode2')">
+        <span class="nav-icon">🦠</span> 传播途径分类
+      </button>
+      <button class="nav-btn" data-tab="mode3" onclick="switchTab('mode3')">
+        <span class="nav-icon">⚡</span> 快问快答
+      </button>
+      <div class="nav-label" style="margin-top:4px;">数据</div>
+      <button class="nav-btn" data-tab="stats" onclick="switchTab('stats')">
+        <span class="nav-icon">📊</span> 学习统计
+      </button>
+      <button class="nav-btn" data-tab="reference" onclick="switchTab('reference')">
+        <span class="nav-icon">📖</span> 知识速查
+      </button>
+    </nav>
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="mode1" onclick="switchTab('mode1')">🛡️ 防护装备选择</button>
-    <button class="tab-btn" data-tab="mode2" onclick="switchTab('mode2')">🦠 传播途径分类</button>
-    <button class="tab-btn" data-tab="mode3" onclick="switchTab('mode3')">⚡ 快问快答</button>
-    <button class="tab-btn" data-tab="stats" onclick="switchTab('stats')">📊 学习统计</button>
-    <button class="tab-btn" data-tab="reference" onclick="switchTab('reference')">📖 知识速查</button>
-  </div>
+    <!-- Status -->
+    <div class="sidebar-stats">
+      <div class="stat-row"><span class="stat-label">⭐ 得分</span><span class="stat-val" id="globalScore">0</span></div>
+      <div class="stat-row"><span class="stat-label">🔥 连击</span><span class="stat-val combo" id="globalCombo">0</span></div>
+      <div class="stat-row"><span class="stat-label">📝 答题</span><span id="globalTotal" style="font-weight:700;">0</span></div>
+      <div class="stat-row"><span class="stat-label">✅ 正确率</span><span class="stat-val" id="globalAccuracy">-</span></div>
+    </div>
 
-  <!-- Status Bar -->
-  <div class="status-bar">
-    <div class="status-item"><span class="icon">⭐</span> 得分：<span class="score-val" id="globalScore">0</span></div>
-    <div class="status-item"><span class="icon">🔥</span> 连击：<span class="combo-val" id="globalCombo">0</span></div>
-    <div class="status-item"><span class="icon">📝</span> 总答题：<span id="globalTotal">0</span></div>
-    <div class="status-item"><span class="icon">✅</span> 正确率：<span class="score-val" id="globalAccuracy">-</span></div>
-  </div>
+  </aside>
 
-  <!-- Main Content -->
-  <div class="main-content" id="mainContent"></div>
+  <!-- ============================================================
+       RIGHT MAIN AREA
+       ============================================================ -->
+  <main class="main-area">
+    <div class="main-content" id="mainContent"></div>
+  </main>
 </div>
 
 <!-- Toast Container -->
@@ -680,1030 +526,291 @@ const DISEASES = [
   { id: 24, name: '埃博拉', transmission: '性接触传播 / 接触患者体液传播', isolation: '接触隔离（按甲类传染病落实）', basic: ['医用防护口罩','帽子','手套','隔离衣','鞋套'], optional: ['医用防护口罩','医用一次性防护服','护目镜/防护面罩'], category: 'contact' },
 ];
 
-// Normalize helper: ensure all basic arrays are flat strings
 DISEASES.forEach(d => {
   d.basic = d.basic.filter(Boolean);
   d.optional = d.optional.filter(Boolean);
-  // Deduplicate and ensure basic items are not also in optional
   d.optional = d.optional.filter(o => !d.basic.includes(o));
 });
 
-const ALL_PPE = [
-  { id: '手套', icon: '🧤', name: '手套', tag: '' },
-  { id: '隔离衣', icon: '👔', name: '隔离衣', tag: '' },
-  { id: '医用外科口罩', icon: '😷', name: '医用外科口罩', tag: '' },
-  { id: '医用防护口罩', icon: '😷‍💨', name: '医用防护口罩', tag: 'N95' },
-  { id: '帽子', icon: '🧢', name: '帽子', tag: '' },
-  { id: '鞋套', icon: '👟', name: '鞋套', tag: '' },
-  { id: '护目镜/防护面屏', icon: '🥽', name: '护目镜/防护面屏', tag: '' },
-  { id: '护目镜/防护面罩', icon: '🥽', name: '护目镜/防护面罩', tag: '' },
-  { id: '医用一次性防护服', icon: '🛡️', name: '医用一次性防护服', tag: '' },
-  { id: '长衣长袖', icon: '👘', name: '长衣长袖', tag: '' },
-];
+function normalizePPE(arr) { return arr.map(p => p === '护目镜/防护面罩' ? '护目镜/防护面屏' : p); }
+DISEASES.forEach(d => { d.basic = normalizePPE(d.basic); d.optional = normalizePPE(d.optional); });
 
-// Deduplicate PPE (护目镜/防护面屏 and 护目镜/防护面罩 are essentially the same in display)
 const PPE_DISPLAY = [
-  { id: '手套', icon: '🧤', name: '手套' },
-  { id: '隔离衣', icon: '👔', name: '隔离衣' },
-  { id: '医用外科口罩', icon: '😷', name: '医用外科口罩' },
-  { id: '医用防护口罩', icon: '😷‍💨', name: '医用防护口罩' },
-  { id: '帽子', icon: '🧢', name: '帽子' },
-  { id: '鞋套', icon: '👟', name: '鞋套' },
+  { id: '手套', icon: '🧤', name: '手套' }, { id: '隔离衣', icon: '👔', name: '隔离衣' },
+  { id: '医用外科口罩', icon: '😷', name: '医用外科口罩' }, { id: '医用防护口罩', icon: '😷‍💨', name: '医用防护口罩' },
+  { id: '帽子', icon: '🧢', name: '帽子' }, { id: '鞋套', icon: '👟', name: '鞋套' },
   { id: '护目镜/防护面屏', icon: '🥽', name: '护目镜/面屏' },
-  { id: '医用一次性防护服', icon: '🛡️', name: '一次性防护服' },
-  { id: '长衣长袖', icon: '👘', name: '长衣长袖' },
+  { id: '医用一次性防护服', icon: '🛡️', name: '一次性防护服' }, { id: '长衣长袖', icon: '👘', name: '长衣长袖' },
 ];
-
-// Normalize PPE references in diseases to match PPE_DISPLAY ids
-function normalizePPE(arr) {
-  return arr.map(p => {
-    if (p === '护目镜/防护面罩') return '护目镜/防护面屏';
-    return p;
-  });
-}
-DISEASES.forEach(d => {
-  d.basic = normalizePPE(d.basic);
-  d.optional = normalizePPE(d.optional);
-});
 
 const CATEGORIES = [
-  { id: 'contact', name: '接触隔离', icon: '🤝', desc: '接触传播疾病', color: '#1a73e8' },
-  { id: 'droplet', name: '飞沫隔离', icon: '💧', desc: '飞沫传播疾病', color: '#0d904f' },
-  { id: 'airborne', name: '空气隔离', icon: '🌬️', desc: '空气传播疾病', color: '#9334e6' },
-  { id: 'contact+droplet', name: '接触+飞沫隔离', icon: '🤝💧', desc: '接触+飞沫传播', color: '#e37400' },
-  { id: 'contact+droplet+airborne', name: '接触+飞沫+空气', icon: '⚠️', desc: '三种途径传播', color: '#d93025' },
-  { id: 'special', name: '特殊隔离', icon: '🔬', desc: '特殊传播途径', color: '#5f6368' },
+  { id: 'contact', name: '接触隔离', icon: '🤝', desc: '接触传播疾病' },
+  { id: 'droplet', name: '飞沫隔离', icon: '💧', desc: '飞沫传播疾病' },
+  { id: 'airborne', name: '空气隔离', icon: '🌬️', desc: '空气传播疾病' },
+  { id: 'contact+droplet', name: '接触+飞沫', icon: '🤝💧', desc: '接触+飞沫传播' },
+  { id: 'contact+droplet+airborne', name: '三种途径', icon: '⚠️', desc: '三种途径传播' },
+  { id: 'special', name: '特殊隔离', icon: '🔬', desc: '特殊传播途径' },
 ];
 
 // ============================================================
 // GAME STATE
 // ============================================================
 let state = {
-  currentTab: 'mode1',
-  score: 0,
-  combo: 0,
-  maxCombo: 0,
-  totalAnswered: 0,
-  correctAnswered: 0,
+  currentTab: 'mode1', score: 0, combo: 0, maxCombo: 0, totalAnswered: 0, correctAnswered: 0,
   mode1: { currentIndex: 0, diseases: [], selected: new Set(), answered: false, round: 0, roundTotal: 5 },
   mode2: { currentIndex: 0, diseases: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 8, timerEnabled: false },
   mode3: { currentIndex: 0, questions: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 10, timerEnabled: false },
 };
 
-// Persisted stats
+// ============================================================
+// PERSISTENCE
+// ============================================================
 function loadStats() {
   try {
     const d = JSON.parse(localStorage.getItem('infection_game_stats') || '{}');
-    return {
-      totalScore: d.totalScore || 0,
-      totalAnswered: d.totalAnswered || 0,
-      correctAnswered: d.correctAnswered || 0,
-      maxCombo: d.maxCombo || 0,
-      wrongBook: d.wrongBook || [],
-    };
-  } catch { return { totalScore: 0, totalAnswered: 0, correctAnswered: 0, maxCombo: 0, wrongBook: [] }; }
+    return { totalScore: d.totalScore||0, totalAnswered: d.totalAnswered||0, correctAnswered: d.correctAnswered||0, maxCombo: d.maxCombo||0, wrongBook: d.wrongBook||[], diseaseStats: d.diseaseStats||{} };
+  } catch { return { totalScore:0, totalAnswered:0, correctAnswered:0, maxCombo:0, wrongBook:[], diseaseStats:{} }; }
 }
-
 function saveStats() {
   const s = loadStats();
-  s.totalScore += state.score;
-  s.totalAnswered += state.totalAnswered;
-  s.correctAnswered += state.correctAnswered;
+  s.totalScore += state.score; s.totalAnswered += state.totalAnswered; s.correctAnswered += state.correctAnswered;
   s.maxCombo = Math.max(s.maxCombo, state.maxCombo);
   localStorage.setItem('infection_game_stats', JSON.stringify(s));
 }
-
 function addWrong(diseaseId, question, userAnswer, correctAnswer, mode) {
   const s = loadStats();
-  s.wrongBook.push({
-    diseaseId, question, userAnswer, correctAnswer, mode,
-    time: new Date().toLocaleString('zh-CN'),
-  });
-  // Keep last 200
+  s.wrongBook.push({ diseaseId, question, userAnswer, correctAnswer, mode, time: new Date().toLocaleString('zh-CN') });
   if (s.wrongBook.length > 200) s.wrongBook = s.wrongBook.slice(-200);
   localStorage.setItem('infection_game_stats', JSON.stringify(s));
 }
-
 function recordDiseaseResult(diseaseId, isCorrect) {
   const s = loadStats();
   if (!s.diseaseStats) s.diseaseStats = {};
-  if (!s.diseaseStats[diseaseId]) {
-    const d = DISEASES.find(x => x.id === diseaseId);
-    s.diseaseStats[diseaseId] = { name: d ? d.name : '未知', correct: 0, wrong: 0 };
-  }
-  if (isCorrect) s.diseaseStats[diseaseId].correct++;
-  else s.diseaseStats[diseaseId].wrong++;
+  if (!s.diseaseStats[diseaseId]) { const d = DISEASES.find(x => x.id === diseaseId); s.diseaseStats[diseaseId] = { name: d?d.name:'未知', correct:0, wrong:0 }; }
+  if (isCorrect) s.diseaseStats[diseaseId].correct++; else s.diseaseStats[diseaseId].wrong++;
   localStorage.setItem('infection_game_stats', JSON.stringify(s));
 }
 
 // ============================================================
-// UTILITY FUNCTIONS
+// UTILITY
 // ============================================================
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function showToast(msg,type){const c=document.getElementById('toastContainer');const e=document.createElement('div');e.className=`toast toast-${type}`;e.textContent=msg;c.appendChild(e);setTimeout(()=>e.remove(),2000);}
+function showComboPop(combo){if(combo<3)return;const e=document.createElement('div');e.className='combo-pop';e.textContent=`🔥 ${combo}连击！`;document.body.appendChild(e);setTimeout(()=>e.remove(),1000);}
+function updateStatusBar(){
+  document.getElementById('globalScore').textContent=state.score;
+  document.getElementById('globalCombo').textContent=state.combo;
+  document.getElementById('globalTotal').textContent=state.totalAnswered;
+  document.getElementById('globalAccuracy').textContent=state.totalAnswered>0?Math.round(state.correctAnswered/state.totalAnswered*100)+'%':'-';
 }
-
-function showToast(msg, type) {
-  const container = document.getElementById('toastContainer');
-  const el = document.createElement('div');
-  el.className = `toast toast-${type}`;
-  el.textContent = msg;
-  container.appendChild(el);
-  setTimeout(() => el.remove(), 2000);
-}
-
-function showComboPop(combo) {
-  if (combo < 3) return;
-  const el = document.createElement('div');
-  el.className = 'combo-pop';
-  el.textContent = `🔥 ${combo}连击！`;
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 1000);
-}
-
-function updateStatusBar() {
-  document.getElementById('globalScore').textContent = state.score;
-  document.getElementById('globalCombo').textContent = state.combo;
-  document.getElementById('globalTotal').textContent = state.totalAnswered;
-  const acc = state.totalAnswered > 0 ? Math.round(state.correctAnswered / state.totalAnswered * 100) + '%' : '-';
-  document.getElementById('globalAccuracy').textContent = acc;
-}
-
-function resetRoundState(mode) {
-  state.score = 0;
-  state.combo = 0;
-  state.totalAnswered = 0;
-  state.correctAnswered = 0;
-  if (mode === 'mode1') {
-    state.mode1 = { currentIndex: 0, diseases: shuffle(DISEASES).slice(0, 5), selected: new Set(), answered: false, round: 0, roundTotal: 5 };
-  } else if (mode === 'mode2') {
-    if (state.mode2.timer) clearInterval(state.mode2.timer);
-    const timerPref = localStorage.getItem('infection_game_timer') === '1';
-    state.mode2 = { currentIndex: 0, diseases: shuffle(DISEASES).slice(0, 10), answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 8, timerEnabled: timerPref };
-  } else if (mode === 'mode3') {
-    if (state.mode3.timer) clearInterval(state.mode3.timer);
-    const timerPref = localStorage.getItem('infection_game_timer') === '1';
-    state.mode3 = { currentIndex: 0, questions: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 10, timerEnabled: timerPref };
-  }
+function resetRoundState(mode){
+  state.score=0;state.combo=0;state.totalAnswered=0;state.correctAnswered=0;
+  if(mode==='mode1'){state.mode1={currentIndex:0,diseases:shuffle(DISEASES).slice(0,5),selected:new Set(),answered:false,round:0,roundTotal:5};}
+  else if(mode==='mode2'){if(state.mode2.timer)clearInterval(state.mode2.timer);const tp=localStorage.getItem('infection_game_timer')==='1';state.mode2={currentIndex:0,diseases:shuffle(DISEASES).slice(0,10),answered:false,round:0,roundTotal:10,timer:null,timeLeft:8,timerEnabled:tp};}
+  else if(mode==='mode3'){if(state.mode3.timer)clearInterval(state.mode3.timer);const tp=localStorage.getItem('infection_game_timer')==='1';state.mode3={currentIndex:0,questions:[],answered:false,round:0,roundTotal:10,timer:null,timeLeft:10,timerEnabled:tp};}
   updateStatusBar();
 }
 
 // ============================================================
 // TAB SWITCHING
 // ============================================================
-function switchTab(tab) {
-  state.currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+function switchTab(tab){
+  state.currentTab=tab;
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
   renderTab(tab);
 }
-
-function renderTab(tab) {
-  switch (tab) {
-    case 'mode1': renderMode1(); break;
-    case 'mode2': renderMode2(); break;
-    case 'mode3': renderMode3(); break;
-    case 'stats': renderStats(); break;
-    case 'reference': renderReference(); break;
-  }
+function renderTab(tab){
+  switch(tab){case 'mode1':renderMode1();break;case 'mode2':renderMode2();break;case 'mode3':renderMode3();break;case 'stats':renderStats();break;case 'reference':renderReference();break;}
 }
 
 // ============================================================
-// MODE 1: PPE SELECTION CHALLENGE
+// MODE 1: PPE SELECTION
 // ============================================================
-function renderMode1() {
-  const m = state.mode1;
-  const container = document.getElementById('mainContent');
-
-  if (m.currentIndex >= m.roundTotal) {
-    renderMode1Result(container);
-    return;
-  }
-
-  const disease = m.diseases[m.currentIndex];
-  const progress = Math.round(m.currentIndex / m.roundTotal * 100);
-  const hint = disease.transmission.includes('空气') ? '💡 提示：该疾病可通过空气传播，注意防护等级！' :
-               disease.transmission.includes('飞沫') ? '💡 提示：该疾病可通过飞沫传播' :
-               disease.transmission.includes('接触') ? '💡 提示：该疾病可通过接触传播' : '';
-
-  container.innerHTML = `
+function renderMode1(){
+  const m=state.mode1,container=document.getElementById('mainContent');
+  if(m.currentIndex>=m.roundTotal){renderMode1Result(container);return;}
+  const disease=m.diseases[m.currentIndex],progress=Math.round(m.currentIndex/m.roundTotal*100);
+  const hint=disease.transmission.includes('空气')?'💡 提示：该疾病可通过空气传播，注意防护等级！':disease.transmission.includes('飞沫')?'💡 提示：该疾病可通过飞沫传播':disease.transmission.includes('接触')?'💡 提示：该疾病可通过接触传播':'';
+  container.innerHTML=`
     <div class="section-title">🛡️ 防护装备选择挑战</div>
-    <div class="section-desc">根据疾病选择正确的防护装备组合（第${m.currentIndex + 1}/${m.roundTotal}题）</div>
+    <div class="section-desc">根据疾病选择正确的防护装备组合（第${m.currentIndex+1}/${m.roundTotal}题）</div>
     <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
-    <div class="disease-card">
-      <div class="disease-name">${disease.name}</div>
-      <div class="disease-info">传播途径：${disease.transmission}</div>
-      <div class="disease-info">隔离方式：${disease.isolation}</div>
-      ${hint ? `<div class="hint-text">${hint}</div>` : ''}
-    </div>
-    <div style="font-weight:600;margin-bottom:8px;color:#5f6368;">请选择<b>基本防护装备</b>（必选）+ <b>可选防护装备</b>（加分）：</div>
+    <div class="disease-card"><div class="disease-name">${disease.name}</div><div class="disease-info">传播途径：${disease.transmission}</div><div class="disease-info">隔离方式：${disease.isolation}</div>${hint?`<div class="hint-text">${hint}</div>`:''}</div>
+    <div style="font-weight:600;margin-bottom:8px;color:var(--text-secondary);">请选择<b>基本防护装备</b>（必选）+ <b>可选防护装备</b>（加分）：</div>
     <div class="ppe-grid" id="ppeGrid"></div>
-    <div style="text-align:center;margin-top:16px;">
-      <button class="btn btn-primary" id="submitPPE" ${m.answered ? 'disabled' : ''}>✅ 提交答案</button>
-      ${m.answered ? `<button class="btn btn-outline" id="nextPPE">下一题 ➡️</button>` : ''}
-    </div>
-    ${m.answered ? `<div id="feedbackArea" style="margin-top:16px;text-align:center;font-weight:600;"></div>` : ''}
-  `;
-
-  // Render PPE grid
-  const grid = document.getElementById('ppeGrid');
-  PPE_DISPLAY.forEach(ppe => {
-    const div = document.createElement('div');
-    div.className = 'ppe-item';
-    div.dataset.ppeId = ppe.id;
-    if (m.selected.has(ppe.id)) div.classList.add('selected');
-    if (m.answered) {
-      const isBasic = disease.basic.includes(ppe.id);
-      const isOptional = disease.optional.includes(ppe.id);
-      const wasSelected = m.selected.has(ppe.id);
-      if (isBasic && wasSelected) div.classList.add('correct');
-      else if (isOptional && wasSelected) div.classList.add('correct');
-      else if (wasSelected && !isBasic && !isOptional) div.classList.add('wrong');
-      else if (isBasic && !wasSelected) div.classList.add('missed');
-    }
-    div.innerHTML = `<span class="ppe-icon">${ppe.icon}</span><span class="ppe-name">${ppe.name}</span>`;
-    if (!m.answered) {
-      div.addEventListener('click', () => {
-        if (m.selected.has(ppe.id)) m.selected.delete(ppe.id);
-        else m.selected.add(ppe.id);
-        div.classList.toggle('selected');
-      });
-    }
+    <div style="text-align:center;margin-top:16px;"><button class="btn btn-primary" id="submitPPE" ${m.answered?'disabled':''}>✅ 提交答案</button>${m.answered?` <button class="btn btn-outline" id="nextPPE">下一题 ➡️</button>`:''}</div>
+    ${m.answered?`<div id="feedbackArea" style="margin-top:16px;text-align:center;font-weight:600;"></div>`:''}`;
+  const grid=document.getElementById('ppeGrid');
+  PPE_DISPLAY.forEach(ppe=>{
+    const div=document.createElement('div');div.className='ppe-item';div.dataset.ppeId=ppe.id;
+    if(m.selected.has(ppe.id))div.classList.add('selected');
+    if(m.answered){const isB=disease.basic.includes(ppe.id),isO=disease.optional.includes(ppe.id),wasS=m.selected.has(ppe.id);if((isB||isO)&&wasS)div.classList.add('correct');else if(wasS&&!isB&&!isO)div.classList.add('wrong');else if(isB&&!wasS)div.classList.add('missed');}
+    div.innerHTML=`<span class="ppe-icon">${ppe.icon}</span><span class="ppe-name">${ppe.name}</span>`;
+    if(!m.answered)div.addEventListener('click',()=>{if(m.selected.has(ppe.id))m.selected.delete(ppe.id);else m.selected.add(ppe.id);div.classList.toggle('selected');});
     grid.appendChild(div);
   });
-
-  // Submit button
-  if (!m.answered) {
-    document.getElementById('submitPPE').addEventListener('click', () => submitMode1(disease));
-  } else {
-    const fb = document.getElementById('feedbackArea');
-    const allCorrect = disease.basic.every(b => m.selected.has(b)) && disease.optional.every(o => m.selected.has(o)) && [...m.selected].every(s => disease.basic.includes(s) || disease.optional.includes(s));
-    fb.innerHTML = allCorrect
-      ? '<span style="color:#0d904f;">🎉 太棒了！完全正确！</span>'
-      : `<span style="color:#d93025;">😔 有遗漏或多余的选择，请看上方颜色标记：</span><br><span style="font-size:0.85em;">🟢 正确选择 | 🔴 错误选择 | 🟡 遗漏的必选项</span>`;
-    document.getElementById('nextPPE').addEventListener('click', () => {
-      m.currentIndex++;
-      m.selected = new Set();
-      m.answered = false;
-      renderMode1();
-    });
-  }
-
+  if(!m.answered){document.getElementById('submitPPE').addEventListener('click',()=>submitMode1(disease));}
+  else{const fb=document.getElementById('feedbackArea'),allOk=disease.basic.every(b=>m.selected.has(b))&&disease.optional.every(o=>m.selected.has(o))&&[...m.selected].every(s=>disease.basic.includes(s)||disease.optional.includes(s));fb.innerHTML=allOk?'<span style="color:var(--success);">🎉 太棒了！完全正确！</span>':'<span style="color:var(--error);">😔 有遗漏或多余的选择，请看上方颜色标记：</span><br><span style="font-size:0.85em;">🟢 正确选择 | 🔴 错误选择 | 🟡 遗漏的必选项</span>';document.getElementById('nextPPE').addEventListener('click',()=>{m.currentIndex++;m.selected=new Set();m.answered=false;renderMode1();});}
   updateStatusBar();
 }
-
-function submitMode1(disease) {
-  const m = state.mode1;
-  m.answered = true;
-  const selected = [...m.selected];
-  const correctBasic = disease.basic.every(b => selected.includes(b));
-  const extraItems = selected.filter(s => !disease.basic.includes(s) && !disease.optional.includes(s));
-  const missedBasic = disease.basic.filter(b => !selected.includes(b));
-  const correctOptional = disease.optional.filter(o => selected.includes(o));
-
-  let points = 0;
-  if (correctBasic && extraItems.length === 0) {
-    points += 60;
-    points += correctOptional.length * (40 / Math.max(1, disease.optional.length));
-  } else if (correctBasic && extraItems.length > 0) {
-    points += 30;
-    points -= extraItems.length * 20;
-  } else {
-    points -= missedBasic.length * 20;
-    points -= extraItems.length * 20;
-  }
-  points = Math.round(points);
-
-  if (points > 0) {
-    state.combo++;
-    state.correctAnswered++;
-    if (state.combo > state.maxCombo) state.maxCombo = state.combo;
-    showToast(`✅ 正确！+${points}分`, 'success');
-    showComboPop(state.combo);
-  } else {
-    state.combo = 0;
-    showToast(`❌ 继续加油！${points}分`, 'error');
-    addWrong(disease.id, `请为「${disease.name}」选择防护装备`, selected.join('、') || '未选择', `基本：${disease.basic.join('、')}；可选：${disease.optional.join('、') || '无'}`, 'mode1');
-  }
-  state.score += points;
-  state.totalAnswered++;
-  recordDiseaseResult(disease.id, points > 0);
-  saveStats();
-  renderMode1();
+function submitMode1(disease){
+  const m=state.mode1;m.answered=true;const selected=[...m.selected];
+  const cb=disease.basic.every(b=>selected.includes(b)),ei=selected.filter(s=>!disease.basic.includes(s)&&!disease.optional.includes(s));
+  const mb=disease.basic.filter(b=>!selected.includes(b)),co=disease.optional.filter(o=>selected.includes(o));
+  let p=0;if(cb&&ei.length===0){p+=60;p+=co.length*(40/Math.max(1,disease.optional.length));}else if(cb&&ei.length>0){p+=30;p-=ei.length*20;}else{p-=mb.length*20;p-=ei.length*20;}p=Math.round(p);
+  if(p>0){state.combo++;state.correctAnswered++;if(state.combo>state.maxCombo)state.maxCombo=state.combo;showToast(`✅ 正确！+${p}分`,'success');showComboPop(state.combo);}
+  else{state.combo=0;showToast(`❌ 继续加油！${p}分`,'error');addWrong(disease.id,`请为「${disease.name}」选择防护装备`,selected.join('、')||'未选择',`基本：${disease.basic.join('、')}；可选：${disease.optional.join('、')||'无'}`,'mode1');}
+  state.score+=p;state.totalAnswered++;recordDiseaseResult(disease.id,p>0);saveStats();renderMode1();
 }
-
-function renderMode1Result(container) {
-  const acc = state.correctAnswered > 0 ? Math.round(state.correctAnswered / state.totalAnswered * 100) : 0;
-  const grade = acc >= 90 ? '🏆 优秀' : acc >= 70 ? '👍 良好' : acc >= 50 ? '📚 加油' : '💪 需努力';
-  container.innerHTML = `
-    <div class="result-screen">
-      <div class="start-icon">🛡️</div>
-      <div class="start-title">防护装备选择 · 本轮结束</div>
-      <div class="result-score">${state.score}</div>
-      <div class="result-stats">
-        <div class="result-stat"><div class="stat-val">${state.totalAnswered}</div><div class="stat-label">答题数</div></div>
-        <div class="result-stat"><div class="stat-val">${state.correctAnswered}</div><div class="stat-label">正确数</div></div>
-        <div class="result-stat"><div class="stat-val">${acc}%</div><div class="stat-label">正确率</div></div>
-        <div class="result-stat"><div class="stat-val">${grade}</div><div class="stat-label">评级</div></div>
-      </div>
-      <div class="result-actions">
-        <button class="btn btn-primary" onclick="resetRoundState('mode1');renderMode1();">🔄 再来一轮</button>
-        <button class="btn btn-outline" onclick="switchTab('mode2')">🦠 去分类挑战</button>
-      </div>
-    </div>
-  `;
+function renderMode1Result(container){
+  const acc=state.correctAnswered>0?Math.round(state.correctAnswered/state.totalAnswered*100):0,grade=acc>=90?'🏆 优秀':acc>=70?'👍 良好':acc>=50?'📚 加油':'💪 需努力';
+  container.innerHTML=`<div class="result-screen"><div class="start-icon">🛡️</div><div class="start-title">防护装备选择 · 本轮结束</div><div class="result-score">${state.score}</div><div class="result-stats"><div class="result-stat"><div class="stat-val">${state.totalAnswered}</div><div class="stat-label">答题数</div></div><div class="result-stat"><div class="stat-val">${state.correctAnswered}</div><div class="stat-label">正确数</div></div><div class="result-stat"><div class="stat-val">${acc}%</div><div class="stat-label">正确率</div></div><div class="result-stat"><div class="stat-val">${grade}</div><div class="stat-label">评级</div></div></div><div class="result-actions"><button class="btn btn-primary" onclick="resetRoundState('mode1');renderMode1();">🔄 再来一轮</button><button class="btn btn-outline" onclick="switchTab('mode2')">🦠 去分类挑战</button></div></div>`;
 }
 
 // ============================================================
-// MODE 2: TRANSMISSION ROUTE CLASSIFIER
+// MODE 2: TRANSMISSION CLASSIFIER
 // ============================================================
-function renderMode2() {
-  const m = state.mode2;
-  const container = document.getElementById('mainContent');
-
-  if (m.currentIndex >= m.roundTotal) {
-    renderMode2Result(container);
-    return;
-  }
-
-  const disease = m.diseases[m.currentIndex];
-  const progress = Math.round(m.currentIndex / m.roundTotal * 100);
-
-  container.innerHTML = `
-    <div class="section-title">🦠 传播途径分类挑战</div>
-    <div class="section-desc">将疾病归类到正确的隔离类型（第${m.currentIndex + 1}/${m.roundTotal}题）</div>
-    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;">
-      <button class="timer-toggle" id="timerToggle2" onclick="toggleMode2Timer()">
-        ⏱️ 计时模式：<span id="timerStatus2">${m.timerEnabled ? '开' : '关'}</span>
-      </button>
-      ${m.timerEnabled ? `<span style="font-size:0.85em;color:#e37400;font-weight:600;">⏱ ${m.timeLeft.toFixed(1)}s</span>` : ''}
-    </div>
-    ${m.timerEnabled ? `<div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div>` : ''}
-    <div class="disease-card">
-      <div class="disease-name">${disease.name}</div>
-      <div class="disease-info">传播途径：${disease.transmission}</div>
-    </div>
-    <div style="text-align:center;font-weight:600;margin-bottom:12px;color:#5f6368;">👆 点击正确的隔离分类：</div>
-    <div class="category-buckets" id="categoryBuckets"></div>
-    ${m.answered ? `<div id="mode2Feedback" style="text-align:center;margin-top:16px;font-weight:600;"></div>
-      <div style="text-align:center;margin-top:12px;"><button class="btn btn-primary" id="nextMode2">下一题 ➡️</button></div>` : ''}
-  `;
-
-  // Render buckets
-  const buckets = document.getElementById('categoryBuckets');
-  CATEGORIES.forEach(cat => {
-    const div = document.createElement('div');
-    div.className = 'category-bucket';
-    div.dataset.catId = cat.id;
-    div.innerHTML = `<span class="bucket-icon">${cat.icon}</span><span class="bucket-name">${cat.name}</span><span class="bucket-count">${cat.desc}</span>`;
-    if (!m.answered) {
-      div.addEventListener('click', () => submitMode2(disease, cat.id));
-    } else if (cat.id === disease.category) {
-      div.classList.add('correct-flash');
-    }
-    buckets.appendChild(div);
-  });
-
-  // Timer (only when enabled)
-  if (!m.answered) {
-    if (m.timer) clearInterval(m.timer);
-    if (m.timerEnabled) {
-      m.timeLeft = 8;
-      updateMode2Timer();
-      m.timer = setInterval(() => {
-        m.timeLeft = Math.max(0, m.timeLeft - 0.1);
-        updateMode2Timer();
-        // Update the timer display text
-        const timerLabel = document.getElementById('timerStatus2');
-        if (timerLabel && m.timerEnabled) {
-          timerLabel.parentElement.nextElementSibling && (timerLabel.parentElement.nextElementSibling.textContent = `⏱ ${m.timeLeft.toFixed(1)}s`);
-        }
-        if (m.timeLeft <= 0) {
-          clearInterval(m.timer);
-          if (!m.answered) submitMode2(disease, null);
-        }
-      }, 100);
-    }
-  }
-
-  if (m.answered) {
-    document.getElementById('nextMode2').addEventListener('click', () => {
-      m.currentIndex++;
-      m.answered = false;
-      renderMode2();
-    });
-  }
-
+function renderMode2(){
+  const m=state.mode2,container=document.getElementById('mainContent');
+  if(m.currentIndex>=m.roundTotal){renderMode2Result(container);return;}
+  const disease=m.diseases[m.currentIndex],progress=Math.round(m.currentIndex/m.roundTotal*100);
+  container.innerHTML=`<div class="section-title">🦠 传播途径分类挑战</div><div class="section-desc">将疾病归类到正确的隔离类型（第${m.currentIndex+1}/${m.roundTotal}题）</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%"></div></div><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;"><button class="timer-toggle" id="timerToggle2" onclick="toggleMode2Timer()">⏱️ 计时模式：<span id="timerStatus2">${m.timerEnabled?'开':'关'}</span></button>${m.timerEnabled?`<span style="font-size:0.85em;color:var(--warning-dark);font-weight:600;">⏱ ${m.timeLeft.toFixed(1)}s</span>`:''}</div>${m.timerEnabled?'<div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div>':''}<div class="disease-card"><div class="disease-name">${disease.name}</div><div class="disease-info">传播途径：${disease.transmission}</div></div><div style="text-align:center;font-weight:600;margin-bottom:12px;color:var(--text-secondary);">👆 点击正确的隔离分类：</div><div class="category-buckets" id="categoryBuckets"></div>${m.answered?`<div id="mode2Feedback" style="text-align:center;margin-top:16px;font-weight:600;"></div><div style="text-align:center;margin-top:12px;"><button class="btn btn-primary" id="nextMode2">下一题 ➡️</button></div>`:''}`;
+  const buckets=document.getElementById('categoryBuckets');
+  CATEGORIES.forEach(cat=>{const div=document.createElement('div');div.className='category-bucket';div.dataset.catId=cat.id;div.innerHTML=`<span class="bucket-icon">${cat.icon}</span><span class="bucket-name">${cat.name}</span><span class="bucket-count">${cat.desc}</span>`;if(!m.answered)div.addEventListener('click',()=>submitMode2(disease,cat.id));else if(cat.id===disease.category)div.classList.add('correct-flash');buckets.appendChild(div);});
+  if(!m.answered){if(m.timer)clearInterval(m.timer);if(m.timerEnabled){m.timeLeft=8;updateMode2Timer();m.timer=setInterval(()=>{m.timeLeft=Math.max(0,m.timeLeft-0.1);updateMode2Timer();if(m.timeLeft<=0){clearInterval(m.timer);if(!m.answered)submitMode2(disease,null);}},100);}}
+  if(m.answered)document.getElementById('nextMode2').addEventListener('click',()=>{m.currentIndex++;m.answered=false;renderMode2();});
   updateStatusBar();
 }
-
-function updateMode2Timer() {
-  const fill = document.getElementById('timerBarFill');
-  if (!fill) return;
-  const m = state.mode2;
-  const pct = Math.round(m.timeLeft / 8 * 100);
-  fill.style.width = pct + '%';
-  fill.classList.toggle('warning', m.timeLeft < 4);
-  fill.classList.toggle('danger', m.timeLeft < 2);
+function updateMode2Timer(){const f=document.getElementById('timerBarFill');if(!f)return;const p=Math.round(state.mode2.timeLeft/8*100);f.style.width=p+'%';f.classList.toggle('warning',state.mode2.timeLeft<4);f.classList.toggle('danger',state.mode2.timeLeft<2);}
+function toggleMode2Timer(){const m=state.mode2;m.timerEnabled=!m.timerEnabled;localStorage.setItem('infection_game_timer',m.timerEnabled?'1':'0');if(m.timer){clearInterval(m.timer);m.timer=null;}m.answered=false;renderMode2();}
+function submitMode2(disease,selectedCat){
+  const m=state.mode2;if(m.answered)return;m.answered=true;if(m.timer){clearInterval(m.timer);m.timer=null;}
+  const isCorrect=selectedCat===disease.category;
+  if(isCorrect){state.combo++;state.correctAnswered++;if(state.combo>state.maxCombo)state.maxCombo=state.combo;state.score+=20;showToast('✅ 分类正确！+20','success');showComboPop(state.combo);}
+  else{state.combo=0;state.score-=10;const ul=selectedCat?CATEGORIES.find(c=>c.id===selectedCat)?.name||'未选择':'⏰ 超时未选',cl=CATEGORIES.find(c=>c.id===disease.category)?.name||disease.category;showToast(`❌ 应归入「${cl}」-10`,'error');addWrong(disease.id,`请将「${disease.name}」归类到正确的隔离类型`,ul,cl,'mode2');}
+  state.totalAnswered++;recordDiseaseResult(disease.id,isCorrect);saveStats();renderMode2();
 }
-
-function toggleMode2Timer() {
-  const m = state.mode2;
-  m.timerEnabled = !m.timerEnabled;
-  localStorage.setItem('infection_game_timer', m.timerEnabled ? '1' : '0');
-  // Re-render current question with new timer state
-  if (m.timer) { clearInterval(m.timer); m.timer = null; }
-  m.answered = false;
-  renderMode2();
-}
-
-function submitMode2(disease, selectedCat) {
-  const m = state.mode2;
-  if (m.answered) return;
-  m.answered = true;
-  if (m.timer) { clearInterval(m.timer); m.timer = null; }
-
-  const isCorrect = selectedCat === disease.category;
-  if (isCorrect) {
-    state.combo++;
-    state.correctAnswered++;
-    if (state.combo > state.maxCombo) state.maxCombo = state.combo;
-    state.score += 20;
-    showToast('✅ 分类正确！+20', 'success');
-    showComboPop(state.combo);
-  } else {
-    state.combo = 0;
-    state.score -= 10;
-    const userLabel = selectedCat ? CATEGORIES.find(c => c.id === selectedCat)?.name || '未选择' : '⏰ 超时未选';
-    const correctLabel = CATEGORIES.find(c => c.id === disease.category)?.name || disease.category;
-    showToast(`❌ 应归入「${correctLabel}」-10`, 'error');
-    addWrong(disease.id, `请将「${disease.name}」归类到正确的隔离类型`, userLabel, correctLabel, 'mode2');
-  }
-  state.totalAnswered++;
-  recordDiseaseResult(disease.id, isCorrect);
-  saveStats();
-  renderMode2();
-}
-
-function renderMode2Result(container) {
-  const acc = state.correctAnswered > 0 ? Math.round(state.correctAnswered / state.totalAnswered * 100) : 0;
-  const grade = acc >= 90 ? '🏆 优秀' : acc >= 70 ? '👍 良好' : acc >= 50 ? '📚 加油' : '💪 需努力';
-  container.innerHTML = `
-    <div class="result-screen">
-      <div class="start-icon">🦠</div>
-      <div class="start-title">传播途径分类 · 本轮结束</div>
-      <div class="result-score">${state.score}</div>
-      <div class="result-stats">
-        <div class="result-stat"><div class="stat-val">${state.totalAnswered}</div><div class="stat-label">答题数</div></div>
-        <div class="result-stat"><div class="stat-val">${state.correctAnswered}</div><div class="stat-label">正确数</div></div>
-        <div class="result-stat"><div class="stat-val">${acc}%</div><div class="stat-label">正确率</div></div>
-        <div class="result-stat"><div class="stat-val">${grade}</div><div class="stat-label">评级</div></div>
-      </div>
-      <div class="result-actions">
-        <button class="btn btn-primary" onclick="resetRoundState('mode2');renderMode2();">🔄 再来一轮</button>
-        <button class="btn btn-outline" onclick="switchTab('mode3')">⚡ 去快问快答</button>
-      </div>
-    </div>
-  `;
+function renderMode2Result(container){
+  const acc=state.correctAnswered>0?Math.round(state.correctAnswered/state.totalAnswered*100):0,grade=acc>=90?'🏆 优秀':acc>=70?'👍 良好':acc>=50?'📚 加油':'💪 需努力';
+  container.innerHTML=`<div class="result-screen"><div class="start-icon">🦠</div><div class="start-title">传播途径分类 · 本轮结束</div><div class="result-score">${state.score}</div><div class="result-stats"><div class="result-stat"><div class="stat-val">${state.totalAnswered}</div><div class="stat-label">答题数</div></div><div class="result-stat"><div class="stat-val">${state.correctAnswered}</div><div class="stat-label">正确数</div></div><div class="result-stat"><div class="stat-val">${acc}%</div><div class="stat-label">正确率</div></div><div class="result-stat"><div class="stat-val">${grade}</div><div class="stat-label">评级</div></div></div><div class="result-actions"><button class="btn btn-primary" onclick="resetRoundState('mode2');renderMode2();">🔄 再来一轮</button><button class="btn btn-outline" onclick="switchTab('mode3')">⚡ 去快问快答</button></div></div>`;
 }
 
 // ============================================================
 // MODE 3: QUICK QUIZ
 // ============================================================
-function generateQuestions() {
-  const questions = [];
-
-  DISEASES.forEach(d => {
-    // Type 1: Single choice - transmission route
-    const wrongTransmissions = DISEASES.filter(x => x.id !== d.id && x.transmission !== d.transmission).slice(0, 3);
-    if (wrongTransmissions.length >= 2) {
-      const options = shuffle([d.transmission, ...wrongTransmissions.slice(0, 3).map(x => x.transmission)].filter((v, i, a) => a.indexOf(v) === i));
-      if (options.length >= 3) {
-        questions.push({
-          type: 'single',
-          diseaseId: d.id,
-          question: `「${d.name}」的主要传播途径是什么？`,
-          options: options.slice(0, 4),
-          answer: d.transmission,
-        });
-      }
-    }
-
-    // Type 2: Single choice - isolation method
-    const wrongIsolations = DISEASES.filter(x => x.id !== d.id && x.isolation !== d.isolation).slice(0, 3);
-    if (wrongIsolations.length >= 2) {
-      const options = shuffle([d.isolation, ...wrongIsolations.slice(0, 3).map(x => x.isolation)].filter((v, i, a) => a.indexOf(v) === i));
-      if (options.length >= 3) {
-        questions.push({
-          type: 'single',
-          diseaseId: d.id,
-          question: `「${d.name}」的隔离方式是什么？`,
-          options: options.slice(0, 4),
-          answer: d.isolation,
-        });
-      }
-    }
-
-    // Type 3: True/False
-    if (d.basic.length > 0) {
-      const correctPPE = d.basic[Math.floor(Math.random() * d.basic.length)];
-      const isTrue = Math.random() > 0.5;
-      const randomWrong = PPE_DISPLAY.find(p => !d.basic.includes(p.id) && !d.optional.includes(p.id));
-      questions.push({
-        type: 'truefalse',
-        diseaseId: d.id,
-        question: isTrue
-          ? `「${d.name}」的基本防护是否需要配备「${correctPPE}」？`
-          : (randomWrong ? `「${d.name}」的基本防护是否需要配备「${randomWrong.name}」？` : `「${d.name}」只需要隔离衣即可？`),
-        options: ['✅ 正确', '❌ 错误'],
-        answer: isTrue ? '✅ 正确' : '❌ 错误',
-      });
-    }
-
-    // Type 4: Multi-select - basic protection (only for simple ones)
-    if (d.basic.length >= 2 && d.basic.length <= 5) {
-      const distractors = PPE_DISPLAY.filter(p => !d.basic.includes(p.id)).slice(0, 3).map(p => p.name);
-      const allOpts = shuffle([...d.basic, ...distractors]).slice(0, 6);
-      questions.push({
-        type: 'multi',
-        diseaseId: d.id,
-        question: `「${d.name}」的基本防护要求包括哪些？（多选）`,
-        options: allOpts,
-        answer: d.basic,
-      });
-    }
+function generateQuestions(){
+  const qs=[];
+  DISEASES.forEach(d=>{
+    const wt=DISEASES.filter(x=>x.id!==d.id&&x.transmission!==d.transmission).slice(0,3);
+    if(wt.length>=2){const o=shuffle([d.transmission,...wt.slice(0,3).map(x=>x.transmission)].filter((v,i,a)=>a.indexOf(v)===i));if(o.length>=3)qs.push({type:'single',diseaseId:d.id,question:`「${d.name}」的主要传播途径是什么？`,options:o.slice(0,4),answer:d.transmission});}
+    const wi=DISEASES.filter(x=>x.id!==d.id&&x.isolation!==d.isolation).slice(0,3);
+    if(wi.length>=2){const o=shuffle([d.isolation,...wi.slice(0,3).map(x=>x.isolation)].filter((v,i,a)=>a.indexOf(v)===i));if(o.length>=3)qs.push({type:'single',diseaseId:d.id,question:`「${d.name}」的隔离方式是什么？`,options:o.slice(0,4),answer:d.isolation});}
+    if(d.basic.length>0){const cp=d.basic[Math.floor(Math.random()*d.basic.length)],isT=Math.random()>0.5,rw=PPE_DISPLAY.find(p=>!d.basic.includes(p.id)&&!d.optional.includes(p.id));qs.push({type:'truefalse',diseaseId:d.id,question:isT?`「${d.name}」的基本防护是否需要配备「${cp}」？`:(rw?`「${d.name}」的基本防护是否需要配备「${rw.name}」？`:`「${d.name}」只需要隔离衣即可？`),options:['✅ 正确','❌ 错误'],answer:isT?'✅ 正确':'❌ 错误'});}
+    if(d.basic.length>=2&&d.basic.length<=5){const ds=PPE_DISPLAY.filter(p=>!d.basic.includes(p.id)).slice(0,3).map(p=>p.name);qs.push({type:'multi',diseaseId:d.id,question:`「${d.name}」的基本防护要求包括哪些？（多选）`,options:shuffle([...d.basic,...ds]).slice(0,6),answer:d.basic});}
   });
-
-  return shuffle(questions).slice(0, 10);
+  return shuffle(qs).slice(0,10);
 }
-
-function renderMode3() {
-  const m = state.mode3;
-  const container = document.getElementById('mainContent');
-
-  if (m.currentIndex >= m.roundTotal) {
-    renderMode3Result(container);
-    return;
-  }
-
-  if (m.questions.length === 0) {
-    m.questions = generateQuestions();
-  }
-
-  const q = m.questions[m.currentIndex];
-  const progress = Math.round(m.currentIndex / m.roundTotal * 100);
-  const typeLabel = q.type === 'single' ? '单选题' : q.type === 'truefalse' ? '判断题' : '多选题';
-  const typeClass = q.type === 'single' ? 'qtype-single' : q.type === 'truefalse' ? 'qtype-truefalse' : 'qtype-multi';
-
-  container.innerHTML = `
-    <div class="section-title">⚡ 快问快答</div>
-    <div class="section-desc">${typeLabel} · 第${m.currentIndex + 1}/${m.roundTotal}题</div>
-    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;">
-      <button class="timer-toggle" id="timerToggle3" onclick="toggleMode3Timer()">
-        ⏱️ 计时模式：<span id="timerStatus3">${m.timerEnabled ? '开' : '关'}</span>
-      </button>
-      ${m.timerEnabled ? `<span style="font-size:0.85em;color:#e37400;font-weight:600;">⏱ ${m.timeLeft.toFixed(1)}s</span>` : ''}
-    </div>
-    ${m.timerEnabled ? `<div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill3" style="width:100%"></div></div>` : ''}
-    <div style="text-align:center;"><span class="question-type ${typeClass}">${typeLabel}</span></div>
-    <div class="quiz-question">${q.question}</div>
-    <div class="options-list" id="optionsList"></div>
-    <div style="text-align:center;margin-top:16px;">
-      ${q.type === 'multi' && !m.answered ? '<button class="btn btn-primary" id="submitMulti">✅ 提交答案</button>' : ''}
-      ${m.answered ? '<button class="btn btn-primary" id="nextMode3">下一题 ➡️</button>' : ''}
-    </div>
-    ${m.answered ? `<div id="mode3Feedback" style="text-align:center;margin-top:12px;font-weight:600;"></div>` : ''}
-  `;
-
-  // Render options
-  const list = document.getElementById('optionsList');
-  const selectedOptions = new Set();
-
-  q.options.forEach((opt, i) => {
-    const div = document.createElement('div');
-    div.className = 'option-item';
-    div.dataset.option = opt;
-    div.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + i)}</span><span>${opt}</span>`;
-
-    if (!m.answered) {
-      div.addEventListener('click', () => {
-        if (q.type === 'multi') {
-          if (selectedOptions.has(opt)) {
-            selectedOptions.delete(opt);
-            div.classList.remove('selected-option');
-          } else {
-            selectedOptions.add(opt);
-            div.classList.add('selected-option');
-          }
-        } else {
-          submitMode3(q, [opt]);
-        }
-      });
-    } else {
-      const isAnswer = q.type === 'multi'
-        ? q.answer.includes(opt)
-        : q.answer === opt;
-      if (isAnswer) div.classList.add('correct-answer');
-      if (m._userAnswer && m._userAnswer.includes(opt) && !isAnswer) div.classList.add('wrong-answer');
-    }
-    list.appendChild(div);
-  });
-
-  // Multi-select submit
-  if (q.type === 'multi' && !m.answered) {
-    document.getElementById('submitMulti').addEventListener('click', () => {
-      submitMode3(q, [...selectedOptions]);
-    });
-  }
-
-  // Next
-  if (m.answered) {
-    document.getElementById('nextMode3').addEventListener('click', () => {
-      m.currentIndex++;
-      m.answered = false;
-      renderMode3();
-    });
-  }
-
-  // Timer (only when enabled)
-  if (!m.answered) {
-    if (m.timer) clearInterval(m.timer);
-    if (m.timerEnabled) {
-      m.timeLeft = 10;
-      updateMode3Timer();
-      m.timer = setInterval(() => {
-        m.timeLeft = Math.max(0, m.timeLeft - 0.1);
-        updateMode3Timer();
-        if (m.timeLeft <= 0) {
-          clearInterval(m.timer);
-          if (!m.answered) submitMode3(q, q.type === 'multi' ? [...selectedOptions] : null);
-        }
-      }, 100);
-    }
-  }
-
+function renderMode3(){
+  const m=state.mode3,container=document.getElementById('mainContent');
+  if(m.currentIndex>=m.roundTotal){renderMode3Result(container);return;}if(m.questions.length===0)m.questions=generateQuestions();
+  const q=m.questions[m.currentIndex],progress=Math.round(m.currentIndex/m.roundTotal*100);
+  const tl=q.type==='single'?'单选题':q.type==='truefalse'?'判断题':'多选题',tc=q.type==='single'?'qtype-single':q.type==='truefalse'?'qtype-truefalse':'qtype-multi';
+  container.innerHTML=`<div class="section-title">⚡ 快问快答</div><div class="section-desc">${tl} · 第${m.currentIndex+1}/${m.roundTotal}题</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%"></div></div><div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;"><button class="timer-toggle" id="timerToggle3" onclick="toggleMode3Timer()">⏱️ 计时模式：<span id="timerStatus3">${m.timerEnabled?'开':'关'}</span></button>${m.timerEnabled?`<span style="font-size:0.85em;color:var(--warning-dark);font-weight:600;">⏱ ${m.timeLeft.toFixed(1)}s</span>`:''}</div>${m.timerEnabled?'<div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill3" style="width:100%"></div></div>':''}<div style="text-align:center;"><span class="question-type ${tc}">${tl}</span></div><div class="quiz-question">${q.question}</div><div class="options-list" id="optionsList"></div><div style="text-align:center;margin-top:16px;">${q.type==='multi'&&!m.answered?'<button class="btn btn-primary" id="submitMulti">✅ 提交答案</button>':''}${m.answered?'<button class="btn btn-primary" id="nextMode3">下一题 ➡️</button>':''}</div>${m.answered?`<div id="mode3Feedback" style="text-align:center;margin-top:12px;font-weight:600;"></div>`:''}`;
+  const list=document.getElementById('optionsList'),so=new Set();
+  q.options.forEach((opt,i)=>{const div=document.createElement('div');div.className='option-item';div.dataset.option=opt;div.innerHTML=`<span class="option-letter">${String.fromCharCode(65+i)}</span><span>${opt}</span>`;if(!m.answered){div.addEventListener('click',()=>{if(q.type==='multi'){if(so.has(opt)){so.delete(opt);div.classList.remove('selected-option');}else{so.add(opt);div.classList.add('selected-option');}}else submitMode3(q,[opt]);});}else{const isA=q.type==='multi'?q.answer.includes(opt):q.answer===opt;if(isA)div.classList.add('correct-answer');if(m._userAnswer&&m._userAnswer.includes(opt)&&!isA)div.classList.add('wrong-answer');}list.appendChild(div);});
+  if(q.type==='multi'&&!m.answered)document.getElementById('submitMulti').addEventListener('click',()=>submitMode3(q,[...so]));
+  if(m.answered)document.getElementById('nextMode3').addEventListener('click',()=>{m.currentIndex++;m.answered=false;renderMode3();});
+  if(!m.answered){if(m.timer)clearInterval(m.timer);if(m.timerEnabled){m.timeLeft=10;updateMode3Timer();m.timer=setInterval(()=>{m.timeLeft=Math.max(0,m.timeLeft-0.1);updateMode3Timer();if(m.timeLeft<=0){clearInterval(m.timer);if(!m.answered)submitMode3(q,q.type==='multi'?[...so]:null);}},100);}}
   updateStatusBar();
 }
-
-function updateMode3Timer() {
-  const fill = document.getElementById('timerBarFill3');
-  if (!fill) return;
-  const m = state.mode3;
-  const pct = Math.round(m.timeLeft / 10 * 100);
-  fill.style.width = pct + '%';
-  fill.classList.toggle('warning', m.timeLeft < 5);
-  fill.classList.toggle('danger', m.timeLeft < 3);
+function updateMode3Timer(){const f=document.getElementById('timerBarFill3');if(!f)return;const p=Math.round(state.mode3.timeLeft/10*100);f.style.width=p+'%';f.classList.toggle('warning',state.mode3.timeLeft<5);f.classList.toggle('danger',state.mode3.timeLeft<3);}
+function toggleMode3Timer(){const m=state.mode3;m.timerEnabled=!m.timerEnabled;localStorage.setItem('infection_game_timer',m.timerEnabled?'1':'0');if(m.timer){clearInterval(m.timer);m.timer=null;}m.answered=false;renderMode3();}
+function submitMode3(q,userAnswer){
+  const m=state.mode3;if(m.answered)return;m.answered=true;if(m.timer){clearInterval(m.timer);m.timer=null;}
+  let isCorrect;if(q.type==='multi'){const c=q.answer;isCorrect=userAnswer&&c.length===userAnswer.length&&c.every(c=>userAnswer.includes(c));}else isCorrect=userAnswer&&userAnswer[0]===q.answer;
+  m._userAnswer=userAnswer||[];
+  if(isCorrect){state.combo++;state.correctAnswered++;if(state.combo>state.maxCombo)state.maxCombo=state.combo;const b=Math.min(state.combo-1,5)*5;state.score+=30+b;showToast(`✅ 正确！+${30+b}`,'success');showComboPop(state.combo);}
+  else{state.combo=0;const us=userAnswer?.join('、')||'⏰ 超时未选',cs=Array.isArray(q.answer)?q.answer.join('、'):q.answer;showToast(`❌ 正确答案：${cs}`,'error');addWrong(q.diseaseId,q.question,us,cs,'mode3');}
+  state.totalAnswered++;recordDiseaseResult(q.diseaseId,isCorrect);saveStats();renderMode3();
 }
-
-function toggleMode3Timer() {
-  const m = state.mode3;
-  m.timerEnabled = !m.timerEnabled;
-  localStorage.setItem('infection_game_timer', m.timerEnabled ? '1' : '0');
-  if (m.timer) { clearInterval(m.timer); m.timer = null; }
-  m.answered = false;
-  renderMode3();
-}
-
-function submitMode3(q, userAnswer) {
-  const m = state.mode3;
-  if (m.answered) return;
-  m.answered = true;
-  if (m.timer) { clearInterval(m.timer); m.timer = null; }
-
-  let isCorrect;
-  if (q.type === 'multi') {
-    const correct = q.answer;
-    isCorrect = userAnswer && correct.length === userAnswer.length && correct.every(c => userAnswer.includes(c));
-  } else {
-    isCorrect = userAnswer && userAnswer[0] === q.answer;
-  }
-
-  m._userAnswer = userAnswer || [];
-
-  if (isCorrect) {
-    state.combo++;
-    state.correctAnswered++;
-    if (state.combo > state.maxCombo) state.maxCombo = state.combo;
-    const bonus = Math.min(state.combo - 1, 5) * 5;
-    state.score += 30 + bonus;
-    showToast(`✅ 正确！+${30 + bonus}`, 'success');
-    showComboPop(state.combo);
-  } else {
-    state.combo = 0;
-    const userStr = userAnswer?.join('、') || '⏰ 超时未选';
-    const correctStr = Array.isArray(q.answer) ? q.answer.join('、') : q.answer;
-    showToast(`❌ 正确答案：${correctStr}`, 'error');
-    addWrong(q.diseaseId, q.question, userStr, correctStr, 'mode3');
-  }
-  state.totalAnswered++;
-  recordDiseaseResult(q.diseaseId, isCorrect);
-  saveStats();
-  renderMode3();
-}
-
-function renderMode3Result(container) {
-  const acc = state.correctAnswered > 0 ? Math.round(state.correctAnswered / state.totalAnswered * 100) : 0;
-  const grade = acc >= 90 ? '🏆 优秀' : acc >= 70 ? '👍 良好' : acc >= 50 ? '📚 加油' : '💪 需努力';
-  container.innerHTML = `
-    <div class="result-screen">
-      <div class="start-icon">⚡</div>
-      <div class="start-title">快问快答 · 本轮结束</div>
-      <div class="result-score">${state.score}</div>
-      <div class="result-stats">
-        <div class="result-stat"><div class="stat-val">${state.totalAnswered}</div><div class="stat-label">答题数</div></div>
-        <div class="result-stat"><div class="stat-val">${state.correctAnswered}</div><div class="stat-label">正确数</div></div>
-        <div class="result-stat"><div class="stat-val">${acc}%</div><div class="stat-label">正确率</div></div>
-        <div class="result-stat"><div class="stat-val">${grade}</div><div class="stat-label">评级</div></div>
-      </div>
-      <div class="result-actions">
-        <button class="btn btn-primary" onclick="resetRoundState('mode3');renderMode3();">🔄 再来一轮</button>
-        <button class="btn btn-outline" onclick="switchTab('stats')">📊 查看统计</button>
-      </div>
-    </div>
-  `;
+function renderMode3Result(container){
+  const acc=state.correctAnswered>0?Math.round(state.correctAnswered/state.totalAnswered*100):0,grade=acc>=90?'🏆 优秀':acc>=70?'👍 良好':acc>=50?'📚 加油':'💪 需努力';
+  container.innerHTML=`<div class="result-screen"><div class="start-icon">⚡</div><div class="start-title">快问快答 · 本轮结束</div><div class="result-score">${state.score}</div><div class="result-stats"><div class="result-stat"><div class="stat-val">${state.totalAnswered}</div><div class="stat-label">答题数</div></div><div class="result-stat"><div class="stat-val">${state.correctAnswered}</div><div class="stat-label">正确数</div></div><div class="result-stat"><div class="stat-val">${acc}%</div><div class="stat-label">正确率</div></div><div class="result-stat"><div class="stat-val">${grade}</div><div class="stat-label">评级</div></div></div><div class="result-actions"><button class="btn btn-primary" onclick="resetRoundState('mode3');renderMode3();">🔄 再来一轮</button><button class="btn btn-outline" onclick="switchTab('stats')">📊 查看统计</button></div></div>`;
 }
 
 // ============================================================
 // STATS PANEL
 // ============================================================
-function renderStats() {
-  const s = loadStats();
-  const allAcc = s.totalAnswered > 0 ? Math.round(s.correctAnswered / s.totalAnswered * 100) : 0;
-  const container = document.getElementById('mainContent');
-
-  // Build per-disease stats
-  const ds = s.diseaseStats || {};
-  const diseaseEntries = Object.entries(ds).sort((a, b) => {
-    const totalA = a[1].correct + a[1].wrong;
-    const totalB = b[1].correct + b[1].wrong;
-    return totalB - totalA; // Most practiced first
-  });
-
-  // Get unique wrong disease IDs for retry
-  const wrongDiseaseIds = [...new Set(s.wrongBook.map(w => w.diseaseId).filter(Boolean))];
-  const wrongDiseases = wrongDiseaseIds.map(id => DISEASES.find(d => d.id === id)).filter(Boolean);
-
-  container.innerHTML = `
-    <div class="section-title">📊 学习统计</div>
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-num">${s.totalScore}</div><div class="stat-title">累计总分</div></div>
-      <div class="stat-card"><div class="stat-num">${s.totalAnswered}</div><div class="stat-title">累计答题</div></div>
-      <div class="stat-card"><div class="stat-num">${s.correctAnswered}</div><div class="stat-title">累计正确</div></div>
-      <div class="stat-card"><div class="stat-num">${allAcc}%</div><div class="stat-title">总正确率</div></div>
-      <div class="stat-card"><div class="stat-num">${s.maxCombo}</div><div class="stat-title">最高连击</div></div>
-      <div class="stat-card"><div class="stat-num">${s.wrongBook.length}</div><div class="stat-title">错题数</div></div>
-    </div>
-
-    <!-- Retry Practice -->
-    ${wrongDiseases.length > 0 ? `
-      <div class="retry-box" style="text-align:center;margin-bottom:20px;padding:16px;background:linear-gradient(135deg,#fef7e0,#fce8e6);border-radius:12px;border:2px solid #f9ab00;">
-        <div style="font-weight:700;margin-bottom:8px;color:#e37400;">🎯 错题重练</div>
-        <div class="retry-desc" style="font-size:0.85em;color:#5f6368;margin-bottom:10px;">你有 <b>${wrongDiseases.length}</b> 种疾病的错题，针对性练习效果更佳！</div>
-        <button class="btn btn-primary" onclick="startRetryPractice('mode1')" style="margin:3px;">🛡️ 防护选择重练</button>
-        <button class="btn btn-success" onclick="startRetryPractice('mode2')" style="margin:3px;">🦠 分类挑战重练</button>
-      </div>
-    ` : `
-      <div class="empty-state"><div class="empty-icon">🎉</div><div>暂无错题，继续保持！</div></div>
-    `}
-
-    <!-- Per-Disease Stats -->
-    ${diseaseEntries.length > 0 ? `
-      <div class="section-title" style="font-size:1.1em;">🎯 疾病掌握度</div>
-      <div style="overflow-x:auto;">
-        <table class="knowledge-table" style="font-size:0.82em;">
-          <thead>
-            <tr><th>疾病</th><th>正确</th><th>错误</th><th>掌握度</th><th>进度</th></tr>
-          </thead>
-          <tbody>
-            ${diseaseEntries.map(([id, stats]) => {
-              const total = stats.correct + stats.wrong;
-              const pct = Math.round(stats.correct / total * 100);
-              const grade = pct >= 80 ? '🟢' : pct >= 50 ? '🟡' : '🔴';
-              return `
-                <tr class="disease-stat-row">
-                  <td><strong>${stats.name}</strong></td>
-                  <td style="color:#0d904f;">${stats.correct}</td>
-                  <td style="color:#d93025;">${stats.wrong}</td>
-                  <td>${grade} ${pct}%</td>
-                  <td>
-                    <div class="mini-bar-bg" style="height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden;">
-                      <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#1a73e8,#0d904f);border-radius:3px;transition:width 0.3s;"></div>
-                    </div>
-                  </td>
-                </tr>
-              `;
-            }).join('')}
-          </tbody>
-        </table>
-      </div>
-    ` : '<div class="empty-state"><div style="font-size:1.5em;">📝</div><div>完成答题后这里会显示每个疾病的掌握情况</div></div>'}
-
-    <!-- Wrong Book -->
-    <div class="section-title" style="font-size:1.1em;margin-top:20px;">📝 错题本</div>
-    ${s.wrongBook.length === 0 ? '<div class="empty-state"><div class="empty-icon">🎉</div><div>还没有错题，继续保持！</div></div>' : `
-      <div class="wrong-list">
-        ${s.wrongBook.slice().reverse().slice(0, 50).map((w, i) => `
-          <div class="wrong-item">
-            <strong>#${s.wrongBook.length - i}</strong> [${w.mode === 'mode1' ? '防护选择' : w.mode === 'mode2' ? '分类挑战' : '快问快答'}] ${w.time}<br>
-            <strong>问题：</strong>${w.question}<br>
-            <strong>你的回答：</strong><span style="color:#d93025;">${w.userAnswer}</span><br>
-            <strong>正确答案：</strong><span class="correct-ans">${w.correctAnswer}</span>
-          </div>
-        `).join('')}
-      </div>
-    `}
-
-    <!-- Data Management -->
-    <div class="section-title" style="font-size:1em;margin-top:20px;">💾 数据管理</div>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;">
-      <button class="btn btn-primary" onclick="exportStats()" style="font-size:0.85em;">📥 导出学习数据</button>
-      <button class="btn btn-outline" onclick="document.getElementById('importFile').click()" style="font-size:0.85em;">📤 导入学习数据</button>
-      <button class="btn btn-danger" onclick="clearStats()" style="font-size:0.85em;">🗑️ 清除学习记录</button>
-    </div>
-    <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importStats(event)">
-  `;
+function renderStats(){
+  const s=loadStats(),allAcc=s.totalAnswered>0?Math.round(s.correctAnswered/s.totalAnswered*100):0,container=document.getElementById('mainContent');
+  const ds=s.diseaseStats||{},de=Object.entries(ds).sort((a,b)=>(b[1].correct+b[1].wrong)-(a[1].correct+a[1].wrong));
+  const wdi=[...new Set(s.wrongBook.map(w=>w.diseaseId).filter(Boolean))],wd=wdi.map(id=>DISEASES.find(d=>d.id===id)).filter(Boolean);
+  container.innerHTML=`<div class="section-title">📊 学习统计</div><div class="stats-grid"><div class="stat-card"><div class="stat-num">${s.totalScore}</div><div class="stat-title">累计总分</div></div><div class="stat-card"><div class="stat-num">${s.totalAnswered}</div><div class="stat-title">累计答题</div></div><div class="stat-card"><div class="stat-num">${s.correctAnswered}</div><div class="stat-title">累计正确</div></div><div class="stat-card"><div class="stat-num">${allAcc}%</div><div class="stat-title">总正确率</div></div><div class="stat-card"><div class="stat-num">${s.maxCombo}</div><div class="stat-title">最高连击</div></div><div class="stat-card"><div class="stat-num">${s.wrongBook.length}</div><div class="stat-title">错题数</div></div></div>${wd.length>0?`<div class="retry-box" style="text-align:center;margin-bottom:20px;padding:16px;border-radius:12px;"><div style="font-weight:700;margin-bottom:8px;color:var(--warning-dark);">🎯 错题重练</div><div style="font-size:0.85em;color:var(--text-secondary);margin-bottom:10px;">你有 <b>${wd.length}</b> 种疾病的错题，针对性练习效果更佳！</div><button class="btn btn-primary" onclick="startRetryPractice('mode1')" style="margin:3px;">🛡️ 防护选择重练</button><button class="btn btn-success" onclick="startRetryPractice('mode2')" style="margin:3px;">🦠 分类挑战重练</button></div>`:'<div class="empty-state"><div class="empty-icon">🎉</div><div>暂无错题，继续保持！</div></div>'}${de.length>0?`<div class="section-title" style="font-size:1.1em;">🎯 疾病掌握度</div><div style="overflow-x:auto;"><table class="knowledge-table" style="font-size:0.82em;"><thead><tr><th>疾病</th><th>正确</th><th>错误</th><th>掌握度</th><th>进度</th></tr></thead><tbody>${de.map(([id,st])=>{const t=st.correct+st.wrong,pct=Math.round(st.correct/t*100),grade=pct>=80?'🟢':pct>=50?'🟡':'🔴';return`<tr class="disease-stat-row"><td><strong>${st.name}</strong></td><td style="color:var(--success);">${st.correct}</td><td style="color:var(--error);">${st.wrong}</td><td>${grade} ${pct}%</td><td><div style="height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent),var(--success));border-radius:3px;transition:width 0.3s;"></div></div></td></tr>`;}).join('')}</tbody></table></div>`:'<div class="empty-state"><div style="font-size:1.5em;">📝</div><div>完成答题后这里会显示每个疾病的掌握情况</div></div>'}<div class="section-title" style="font-size:1.1em;margin-top:20px;">📝 错题本</div>${s.wrongBook.length===0?'<div class="empty-state"><div class="empty-icon">🎉</div><div>还没有错题，继续保持！</div></div>':`<div class="wrong-list">${s.wrongBook.slice().reverse().slice(0,50).map((w,i)=>`<div class="wrong-item"><strong>#${s.wrongBook.length-i}</strong> [${w.mode==='mode1'?'防护选择':w.mode==='mode2'?'分类挑战':'快问快答'}] ${w.time}<br><strong>问题：</strong>${w.question}<br><strong>你的回答：</strong><span style="color:var(--error);">${w.userAnswer}</span><br><strong>正确答案：</strong><span class="correct-ans">${w.correctAnswer}</span></div>`).join('')}</div>`}<div class="section-title" style="font-size:1em;margin-top:20px;">💾 数据管理</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;"><button class="btn btn-primary" onclick="exportStats()" style="font-size:0.85em;">📥 导出学习数据</button><button class="btn btn-outline" onclick="document.getElementById('importFile').click()" style="font-size:0.85em;">📤 导入学习数据</button><button class="btn btn-danger" onclick="clearStats()" style="font-size:0.85em;">🗑️ 清除学习记录</button></div><input type="file" id="importFile" accept=".json" style="display:none;" onchange="importStats(event)">`;
   updateStatusBar();
 }
-
-function clearStats() {
-  if (confirm('确定要清除所有学习记录和错题本吗？此操作不可撤销！')) {
-    localStorage.removeItem('infection_game_stats');
-    showToast('已清除所有学习记录', 'info');
-    renderStats();
-  }
-}
+function clearStats(){if(confirm('确定要清除所有学习记录和错题本吗？此操作不可撤销！')){localStorage.removeItem('infection_game_stats');showToast('已清除所有学习记录','info');renderStats();}}
 
 // ============================================================
-// RETRY PRACTICE (错题重练)
+// RETRY / EXPORT / IMPORT
 // ============================================================
-function startRetryPractice(mode) {
-  const s = loadStats();
-  const wrongDiseaseIds = [...new Set(s.wrongBook.map(w => w.diseaseId).filter(Boolean))];
-  const wrongDiseases = wrongDiseaseIds.map(id => DISEASES.find(d => d.id === id)).filter(Boolean);
-
-  if (wrongDiseases.length === 0) {
-    showToast('没有错题可以练习！', 'info');
-    return;
-  }
-
-  // Reset the chosen mode with wrong diseases
-  resetRoundState(mode);
-  if (mode === 'mode1') {
-    state.mode1.diseases = shuffle(wrongDiseases).slice(0, Math.min(5, wrongDiseases.length));
-    state.mode1.roundTotal = state.mode1.diseases.length;
-  } else if (mode === 'mode2') {
-    state.mode2.diseases = shuffle(wrongDiseases).slice(0, Math.min(10, wrongDiseases.length));
-    state.mode2.roundTotal = state.mode2.diseases.length;
-  }
-
-  // Switch to that tab
-  state.currentTab = mode;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === mode));
-  updateStatusBar();
-  renderTab(mode);
-  showToast(`🎯 开始错题重练！共 ${mode === 'mode1' ? state.mode1.roundTotal : state.mode2.roundTotal} 题`, 'info');
+function startRetryPractice(mode){
+  const s=loadStats(),wdi=[...new Set(s.wrongBook.map(w=>w.diseaseId).filter(Boolean))],wd=wdi.map(id=>DISEASES.find(d=>d.id===id)).filter(Boolean);
+  if(wd.length===0){showToast('没有错题可以练习！','info');return;}
+  resetRoundState(mode);if(mode==='mode1'){state.mode1.diseases=shuffle(wd).slice(0,Math.min(5,wd.length));state.mode1.roundTotal=state.mode1.diseases.length;}else if(mode==='mode2'){state.mode2.diseases=shuffle(wd).slice(0,Math.min(10,wd.length));state.mode2.roundTotal=state.mode2.diseases.length;}
+  state.currentTab=mode;document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===mode));
+  updateStatusBar();renderTab(mode);showToast(`🎯 开始错题重练！共 ${mode==='mode1'?state.mode1.roundTotal:state.mode2.roundTotal} 题`,'info');
 }
-
-// ============================================================
-// EXPORT / IMPORT
-// ============================================================
-function exportStats() {
-  const s = loadStats();
-  const data = JSON.stringify(s, null, 2);
-  const blob = new Blob([data], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `infection-game-stats-${new Date().toISOString().slice(0, 10)}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  showToast('✅ 学习数据已导出！', 'success');
-}
-
-function importStats(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const data = JSON.parse(e.target.result);
-      // Validate structure
-      if (typeof data.totalScore !== 'number' || typeof data.totalAnswered !== 'number') {
-        throw new Error('数据格式不正确');
-      }
-      // Confirm before overwriting
-      if (confirm(`即将导入数据：\n- 累计总分：${data.totalScore}\n- 累计答题：${data.totalAnswered}\n- 错题数：${(data.wrongBook || []).length}\n\n确定要覆盖当前数据吗？`)) {
-        localStorage.setItem('infection_game_stats', JSON.stringify(data));
-        showToast('✅ 学习数据已导入！', 'success');
-        renderStats();
-      }
-    } catch (err) {
-      showToast('❌ 文件格式不正确，请选择有效的导出文件', 'error');
-    }
-  };
-  reader.readAsText(file);
-  // Reset input so the same file can be re-imported
-  event.target.value = '';
-}
+function exportStats(){const s=loadStats(),d=JSON.stringify(s,null,2),b=new Blob([d],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=`infection-game-stats-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);showToast('✅ 学习数据已导出！','success');}
+function importStats(event){const f=event.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(e){try{const d=JSON.parse(e.target.result);if(typeof d.totalScore!=='number'||typeof d.totalAnswered!=='number')throw new Error('数据格式不正确');if(confirm(`即将导入数据：\n- 累计总分：${d.totalScore}\n- 累计答题：${d.totalAnswered}\n- 错题数：${(d.wrongBook||[]).length}\n\n确定要覆盖当前数据吗？`)){localStorage.setItem('infection_game_stats',JSON.stringify(d));showToast('✅ 学习数据已导入！','success');renderStats();}}catch(err){showToast('❌ 文件格式不正确，请选择有效的导出文件','error');}};r.readAsText(f);event.target.value='';}
 
 // ============================================================
 // KNOWLEDGE REFERENCE
 // ============================================================
-function renderReference() {
-  const container = document.getElementById('mainContent');
-  container.innerHTML = `
-    <div class="section-title">📖 知识速查表</div>
-    <div class="section-desc">23种常见传染病的防护要求速查（源自培训教材）</div>
-    <div style="margin-bottom:12px;">
-      <input type="text" id="searchRef" placeholder="🔍 搜索疾病名称..." style="width:100%;padding:10px 14px;border:2px solid #dadce0;border-radius:10px;font-size:0.95em;" oninput="filterReference()">
-    </div>
-    <div class="knowledge-table-wrap">
-      <table class="knowledge-table" id="refTable">
-        <thead>
-          <tr>
-            <th>疾病名称</th>
-            <th>传播途径</th>
-            <th>隔离方式</th>
-            <th>基本防护要求</th>
-            <th>可选防护用品</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${DISEASES.map(d => `
-            <tr data-search="${d.name}">
-              <td><strong>${d.name}</strong></td>
-              <td>${d.transmission}</td>
-              <td>${d.isolation}</td>
-              <td>${d.basic.length > 0 ? d.basic.map(p => `<span style="background:#ceead6;padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;font-size:0.8em;">${p}</span>`).join(' ') : '<span style="color:#999;">—</span>'}</td>
-              <td>${d.optional.length > 0 ? d.optional.map(p => `<span style="background:#fef7e0;padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;font-size:0.8em;">${p}</span>`).join(' ') : '<span style="color:#999;">—</span>'}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-  `;
+function renderReference(){
+  const container=document.getElementById('mainContent');
+  container.innerHTML=`<div class="section-title">📖 知识速查表</div><div class="section-desc">23种常见传染病的防护要求速查（源自培训教材）</div><div style="margin-bottom:12px;"><input type="text" id="searchRef" placeholder="🔍 搜索疾病名称..." oninput="filterReference()"></div><div class="knowledge-table-wrap"><table class="knowledge-table" id="refTable"><thead><tr><th>疾病名称</th><th>传播途径</th><th>隔离方式</th><th>基本防护要求</th><th>可选防护用品</th></tr></thead><tbody>${DISEASES.map(d=>`<tr data-search="${d.name}"><td><strong>${d.name}</strong></td><td>${d.transmission}</td><td>${d.isolation}</td><td>${d.basic.length>0?d.basic.map(p=>`<span style="background:var(--success-light);padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;font-size:0.8em;">${p}</span>`).join(' '):'<span style="color:#999;">—</span>'}</td><td>${d.optional.length>0?d.optional.map(p=>`<span style="background:var(--warning-light);padding:2px 6px;border-radius:4px;margin:1px;display:inline-block;font-size:0.8em;">${p}</span>`).join(' '):'<span style="color:#999;">—</span>'}</td></tr>`).join('')}</tbody></table></div>`;
   updateStatusBar();
 }
+function filterReference(){const q=document.getElementById('searchRef')?.value?.toLowerCase()||'';document.querySelectorAll('#refTable tbody tr').forEach(tr=>{tr.style.display=tr.dataset.search?.toLowerCase().includes(q)?'':'none';});}
 
-function filterReference() {
-  const query = document.getElementById('searchRef')?.value?.toLowerCase() || '';
-  document.querySelectorAll('#refTable tbody tr').forEach(tr => {
-    const text = tr.dataset.search?.toLowerCase() || '';
-    tr.style.display = text.includes(query) ? '' : 'none';
-  });
+// ============================================================
+// THEME
+// ============================================================
+function setTheme(themeName){
+  document.body.classList.remove('theme-warm','theme-forest','theme-purple');
+  if(themeName)document.body.classList.add(`theme-${themeName}`);
+  document.getElementById('themeSelect').value=themeName;
+  localStorage.setItem('infection_game_theme',themeName);
+}
+function initTheme(){
+  const saved=localStorage.getItem('infection_game_theme')||'';
+  if(saved){document.body.classList.add(`theme-${saved}`);document.getElementById('themeSelect').value=saved;}
 }
 
 // ============================================================
 // DARK MODE
 // ============================================================
-function toggleDarkMode() {
-  const body = document.body;
+function toggleDarkMode(){
+  const body=document.body,isDark=!body.classList.contains('dark');
   body.classList.toggle('dark');
-  const isDark = body.classList.contains('dark');
-  document.getElementById('darkToggle').textContent = isDark ? '☀️' : '🌙';
-  localStorage.setItem('infection_game_dark', isDark ? '1' : '0');
+  document.getElementById('darkToggle').textContent=isDark?'☀️':'🌙';
+  localStorage.setItem('infection_game_dark',isDark?'1':'0');
 }
-
-function initDarkMode() {
-  const saved = localStorage.getItem('infection_game_dark');
-  if (saved === '1') {
-    document.body.classList.add('dark');
-    document.getElementById('darkToggle').textContent = '☀️';
-  }
+function initDarkMode(){
+  if(localStorage.getItem('infection_game_dark')==='1'){document.body.classList.add('dark');document.getElementById('darkToggle').textContent='☀️';}
 }
 
 // ============================================================
 // INIT
 // ============================================================
-function init() {
-  initDarkMode();
-  state.currentTab = 'mode1';
-  state.score = 0;
-  state.combo = 0;
-  state.totalAnswered = 0;
-  state.correctAnswered = 0;
-  state.mode1.diseases = shuffle(DISEASES).slice(0, 5);
-  state.mode2.diseases = shuffle(DISEASES).slice(0, 10);
-  state.mode3.questions = generateQuestions();
-  // Restore timer preference
-  const timerPref = localStorage.getItem('infection_game_timer') === '1';
-  state.mode2.timerEnabled = timerPref;
-  state.mode3.timerEnabled = timerPref;
-  updateStatusBar();
-  renderTab('mode1');
+function init(){
+  initTheme();initDarkMode();
+  state.currentTab='mode1';state.score=0;state.combo=0;state.totalAnswered=0;state.correctAnswered=0;
+  state.mode1.diseases=shuffle(DISEASES).slice(0,5);state.mode2.diseases=shuffle(DISEASES).slice(0,10);state.mode3.questions=generateQuestions();
+  const tp=localStorage.getItem('infection_game_timer')==='1';state.mode2.timerEnabled=tp;state.mode3.timerEnabled=tp;
+  updateStatusBar();renderTab('mode1');
 }
-
-// Run on load
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
