@@ -45,9 +45,49 @@
 ## 项目结构
 
 ```
-├── index.html    # 主应用（单文件）
-└── references/   # 参考知识文档
+├── index.html       # 主应用（单文件，含 HTML/CSS/JS）
+├── README.md        # 项目说明文档（你正在看的这个文件）
+├── CLAUDE.md        # AI 编程助手指南，记录架构和开发要点
+├── .gitignore       # 告诉 Git 忽略哪些文件（详见下方说明）
+├── references/      # 参考资料
+│   └── 常见传染病和感染性疾病的防护要求.md   # 培训教材原文
+├── backups/         # 参考数据的备份文件（Excel/Word），不入仓库
+└── .venv/           # Python 虚拟环境（本地工具用），不入仓库
 ```
+
+### 文件说明
+
+| 文件 | 作用 | 是否入库 |
+|------|------|----------|
+| `index.html` | 游戏主程序，浏览器直接打开即用 | ✅ |
+| `README.md` | 项目介绍、功能说明、使用方法 | ✅ |
+| `CLAUDE.md` | 给 AI 编程助手的架构说明，普通人无需关注 | ✅ |
+| `.gitignore` | 列出 Git 应忽略的文件/文件夹 | ✅ |
+| `references/` | 培训教材原文，游戏数据来源 | ✅ |
+| `backups/` | Excel/Word 原始数据备份，开发时参考用 | ❌ |
+| `.venv/` | Python 虚拟环境，每人应自己创建 | ❌ |
+
+### .gitignore 是什么？
+
+`.gitignore` 告诉 Git **哪些文件不需要版本管理**。不是所有文件都需要上传到 GitHub，有些文件：
+- 体积很大且可以重新生成（如 `.venv/`、`node_modules/`）
+- 包含个人本地配置（如 `.vscode/`）
+- 是操作系统自动生成的（如 `.DS_Store`）
+- 是临时或备份文件（如 `backups/`）
+
+把它们写进 `.gitignore`，Git 就会自动忽略它们，保持仓库干净。
+
+| 忽略规则 | 类型 | 为什么忽略 |
+|----------|------|-----------|
+| `.venv/`、`venv/` | Python 虚拟环境 | 体积大，每人自己 `python -m venv .venv` 创建 |
+| `node_modules/` | Node 依赖 | 可随时 `npm install` 重新下载 |
+| `__pycache__/`、`*.pyc` | Python 缓存 | 自动生成，不需要版本管理 |
+| `backups/` | 备份文件 | 原始数据副本，非项目运行必需 |
+| `.DS_Store`、`Thumbs.db` | 系统文件 | macOS/Windows 自动生成的无关文件 |
+| `.vscode/`、`.idea/` | 编辑器配置 | 个人工具配置，不适合共享 |
+| `.claude/` | AI 工具配置 | Claude Code 本地数据，不适合共享 |
+| `*.log`、`*.tmp` | 临时文件 | 日志和临时数据 |
+| `*.zip`、`*.tar.gz` | 压缩包 | 不应提交二进制归档文件 |
 
 ## 数据来源
 
