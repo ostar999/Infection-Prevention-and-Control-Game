@@ -512,10 +512,113 @@ body {
 }
 .empty-state .empty-icon { font-size: 3em; margin-bottom: 12px; }
 .hidden { display: none !important; }
+/* Timer Toggle */
+.timer-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border: 2px solid #dadce0;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.82em;
+  font-weight: 600;
+  background: #f8f9fa;
+  color: #5f6368;
+  transition: all 0.25s;
+}
+.timer-toggle:hover { border-color: #e37400; color: #e37400; background: #fef7e0; }
+body.dark .timer-toggle { background: #1e1e32; border-color: #333; color: #999; }
+body.dark .timer-toggle:hover { border-color: #f0a040; color: #f0a040; background: #2d2a18; }
+/* Dark Mode Toggle */
+.dark-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+}
+.dark-toggle:hover { background: rgba(255,255,255,0.25); border-color: #fff; transform: scale(1.08); }
+/* Dark Mode Overrides */
+body.dark {
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+  color: #e0e0e0;
+}
+body.dark .header { background: linear-gradient(135deg, #2d5aa0, #143066); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+body.dark .tabs,
+body.dark .status-bar,
+body.dark .main-content { background: #1e1e32; color: #e0e0e0; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+body.dark .tab-btn { color: #999; }
+body.dark .tab-btn:hover { background: #2a2a40; color: #8ab4f8; }
+body.dark .tab-btn.active { background: linear-gradient(135deg, #2d5aa0, #1a3a6e); }
+body.dark .disease-card { background: linear-gradient(135deg, #1e1e32, #2a2a40); border-color: #4a6fa5; }
+body.dark .disease-card .disease-name { color: #8ab4f8; }
+body.dark .disease-card .disease-info { color: #999; }
+body.dark .disease-card .hint-text { color: #f0a040; }
+body.dark .ppe-item { background: #1e1e32; border-color: #333; }
+body.dark .ppe-item:hover { border-color: #4a6fa5; background: #2a2a40; }
+body.dark .ppe-item.selected { border-color: #4a6fa5; background: #1a3050; }
+body.dark .section-title { color: #8ab4f8; }
+body.dark .section-desc { color: #999; }
+body.dark .category-bucket { border-color: #333; }
+body.dark .category-bucket:hover { border-color: #4a6fa5; background: #2a2a40; }
+body.dark .quiz-question { background: #1e1e32; }
+body.dark .option-item { border-color: #333; }
+body.dark .option-item:hover { border-color: #4a6fa5; background: #2a2a40; }
+body.dark .option-letter { background: #2a2a40; color: #8ab4f8; }
+body.dark .option-item.selected-option { background: #1a3050; border-color: #4a6fa5; }
+body.dark .option-item.selected-option .option-letter { background: #2d5aa0; color: #fff; }
+body.dark .stat-card { background: #1e1e32; }
+body.dark .stat-card .stat-num { color: #8ab4f8; }
+body.dark .stat-card .stat-title { color: #999; }
+body.dark .knowledge-table th { background: #2d5aa0; }
+body.dark .knowledge-table td { border-color: #333; }
+body.dark .knowledge-table tr:nth-child(even) td { background: #1a1a2c; }
+body.dark .knowledge-table tr:hover td { background: #2a2a40; }
+body.dark .knowledge-table tr:nth-child(even):hover td { background: #2a2a40; }
+body.dark .wrong-item { background: #2d2a18; }
+body.dark .btn-outline { background: #1e1e32; color: #8ab4f8; border-color: #4a6fa5; }
+body.dark .btn-outline:hover { background: #2a2a40; }
+body.dark .empty-state { color: #999; }
+body.dark .empty-state .empty-icon { opacity: 0.6; }
+body.dark .progress-bar-wrap,
+body.dark .timer-bar-wrap { background: #333; }
+body.dark .result-score {
+  background: linear-gradient(135deg, #8ab4f8, #5a8fd0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+body.dark .dark-toggle { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
+body.dark .dark-toggle:hover { background: rgba(255,255,255,0.18); }
+body.dark #searchRef { background: #1e1e32; color: #e0e0e0; border-color: #333; }
+body.dark .result-stat .stat-val { color: #8ab4f8; }
+body.dark .result-stat .stat-label { color: #999; }
+body.dark .status-item { color: #ccc; }
+/* Disease Stats Table in Dark */
+body.dark .disease-stat-row:hover { background: #2a2a40; }
+body.dark .mini-bar-bg { background: #333; }
+body.dark .retry-box { background: linear-gradient(135deg, #2d2a18, #2d1a1a) !important; border-color: #8a6d00 !important; }
+body.dark .retry-box .retry-desc { color: #999; }
 </style>
 </head>
 <body>
 <div class="container">
+  <!-- Dark Mode Toggle -->
+  <button class="dark-toggle" id="darkToggle" onclick="toggleDarkMode()" aria-label="切换暗色模式">🌙</button>
+
   <!-- Header -->
   <div class="header">
     <h1>🏥 传染病防护知识培训游戏</h1>
@@ -643,8 +746,8 @@ let state = {
   totalAnswered: 0,
   correctAnswered: 0,
   mode1: { currentIndex: 0, diseases: [], selected: new Set(), answered: false, round: 0, roundTotal: 5 },
-  mode2: { currentIndex: 0, diseases: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 8 },
-  mode3: { currentIndex: 0, questions: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 10 },
+  mode2: { currentIndex: 0, diseases: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 8, timerEnabled: false },
+  mode3: { currentIndex: 0, questions: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 10, timerEnabled: false },
 };
 
 // Persisted stats
@@ -678,6 +781,18 @@ function addWrong(diseaseId, question, userAnswer, correctAnswer, mode) {
   });
   // Keep last 200
   if (s.wrongBook.length > 200) s.wrongBook = s.wrongBook.slice(-200);
+  localStorage.setItem('infection_game_stats', JSON.stringify(s));
+}
+
+function recordDiseaseResult(diseaseId, isCorrect) {
+  const s = loadStats();
+  if (!s.diseaseStats) s.diseaseStats = {};
+  if (!s.diseaseStats[diseaseId]) {
+    const d = DISEASES.find(x => x.id === diseaseId);
+    s.diseaseStats[diseaseId] = { name: d ? d.name : '未知', correct: 0, wrong: 0 };
+  }
+  if (isCorrect) s.diseaseStats[diseaseId].correct++;
+  else s.diseaseStats[diseaseId].wrong++;
   localStorage.setItem('infection_game_stats', JSON.stringify(s));
 }
 
@@ -728,10 +843,12 @@ function resetRoundState(mode) {
     state.mode1 = { currentIndex: 0, diseases: shuffle(DISEASES).slice(0, 5), selected: new Set(), answered: false, round: 0, roundTotal: 5 };
   } else if (mode === 'mode2') {
     if (state.mode2.timer) clearInterval(state.mode2.timer);
-    state.mode2 = { currentIndex: 0, diseases: shuffle(DISEASES).slice(0, 10), answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 8 };
+    const timerPref = localStorage.getItem('infection_game_timer') === '1';
+    state.mode2 = { currentIndex: 0, diseases: shuffle(DISEASES).slice(0, 10), answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 8, timerEnabled: timerPref };
   } else if (mode === 'mode3') {
     if (state.mode3.timer) clearInterval(state.mode3.timer);
-    state.mode3 = { currentIndex: 0, questions: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 10 };
+    const timerPref = localStorage.getItem('infection_game_timer') === '1';
+    state.mode3 = { currentIndex: 0, questions: [], answered: false, round: 0, roundTotal: 10, timer: null, timeLeft: 10, timerEnabled: timerPref };
   }
   updateStatusBar();
 }
@@ -874,6 +991,7 @@ function submitMode1(disease) {
   }
   state.score += points;
   state.totalAnswered++;
+  recordDiseaseResult(disease.id, points > 0);
   saveStats();
   renderMode1();
 }
@@ -919,7 +1037,13 @@ function renderMode2() {
     <div class="section-title">🦠 传播途径分类挑战</div>
     <div class="section-desc">将疾病归类到正确的隔离类型（第${m.currentIndex + 1}/${m.roundTotal}题）</div>
     <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
-    <div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;">
+      <button class="timer-toggle" id="timerToggle2" onclick="toggleMode2Timer()">
+        ⏱️ 计时模式：<span id="timerStatus2">${m.timerEnabled ? '开' : '关'}</span>
+      </button>
+      ${m.timerEnabled ? `<span style="font-size:0.85em;color:#e37400;font-weight:600;">⏱ ${m.timeLeft.toFixed(1)}s</span>` : ''}
+    </div>
+    ${m.timerEnabled ? `<div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill" style="width:100%"></div></div>` : ''}
     <div class="disease-card">
       <div class="disease-name">${disease.name}</div>
       <div class="disease-info">传播途径：${disease.transmission}</div>
@@ -945,26 +1069,32 @@ function renderMode2() {
     buckets.appendChild(div);
   });
 
-  // Timer
+  // Timer (only when enabled)
   if (!m.answered) {
-    m.timeLeft = 8;
-    updateMode2Timer();
     if (m.timer) clearInterval(m.timer);
-    m.timer = setInterval(() => {
-      m.timeLeft = Math.max(0, m.timeLeft - 0.1);
+    if (m.timerEnabled) {
+      m.timeLeft = 8;
       updateMode2Timer();
-      if (m.timeLeft <= 0) {
-        clearInterval(m.timer);
-        if (!m.answered) submitMode2(disease, null);
-      }
-    }, 100);
+      m.timer = setInterval(() => {
+        m.timeLeft = Math.max(0, m.timeLeft - 0.1);
+        updateMode2Timer();
+        // Update the timer display text
+        const timerLabel = document.getElementById('timerStatus2');
+        if (timerLabel && m.timerEnabled) {
+          timerLabel.parentElement.nextElementSibling && (timerLabel.parentElement.nextElementSibling.textContent = `⏱ ${m.timeLeft.toFixed(1)}s`);
+        }
+        if (m.timeLeft <= 0) {
+          clearInterval(m.timer);
+          if (!m.answered) submitMode2(disease, null);
+        }
+      }, 100);
+    }
   }
 
   if (m.answered) {
     document.getElementById('nextMode2').addEventListener('click', () => {
       m.currentIndex++;
       m.answered = false;
-      m.timeLeft = 8;
       renderMode2();
     });
   }
@@ -980,6 +1110,16 @@ function updateMode2Timer() {
   fill.style.width = pct + '%';
   fill.classList.toggle('warning', m.timeLeft < 4);
   fill.classList.toggle('danger', m.timeLeft < 2);
+}
+
+function toggleMode2Timer() {
+  const m = state.mode2;
+  m.timerEnabled = !m.timerEnabled;
+  localStorage.setItem('infection_game_timer', m.timerEnabled ? '1' : '0');
+  // Re-render current question with new timer state
+  if (m.timer) { clearInterval(m.timer); m.timer = null; }
+  m.answered = false;
+  renderMode2();
 }
 
 function submitMode2(disease, selectedCat) {
@@ -1005,6 +1145,7 @@ function submitMode2(disease, selectedCat) {
     addWrong(disease.id, `请将「${disease.name}」归类到正确的隔离类型`, userLabel, correctLabel, 'mode2');
   }
   state.totalAnswered++;
+  recordDiseaseResult(disease.id, isCorrect);
   saveStats();
   renderMode2();
 }
@@ -1123,7 +1264,13 @@ function renderMode3() {
     <div class="section-title">⚡ 快问快答</div>
     <div class="section-desc">${typeLabel} · 第${m.currentIndex + 1}/${m.roundTotal}题</div>
     <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progress}%"></div></div>
-    <div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill3" style="width:100%"></div></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;">
+      <button class="timer-toggle" id="timerToggle3" onclick="toggleMode3Timer()">
+        ⏱️ 计时模式：<span id="timerStatus3">${m.timerEnabled ? '开' : '关'}</span>
+      </button>
+      ${m.timerEnabled ? `<span style="font-size:0.85em;color:#e37400;font-weight:600;">⏱ ${m.timeLeft.toFixed(1)}s</span>` : ''}
+    </div>
+    ${m.timerEnabled ? `<div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBarFill3" style="width:100%"></div></div>` : ''}
     <div style="text-align:center;"><span class="question-type ${typeClass}">${typeLabel}</span></div>
     <div class="quiz-question">${q.question}</div>
     <div class="options-list" id="optionsList"></div>
@@ -1180,24 +1327,25 @@ function renderMode3() {
     document.getElementById('nextMode3').addEventListener('click', () => {
       m.currentIndex++;
       m.answered = false;
-      m.timeLeft = 10;
       renderMode3();
     });
   }
 
-  // Timer
+  // Timer (only when enabled)
   if (!m.answered) {
-    m.timeLeft = 10;
-    updateMode3Timer();
     if (m.timer) clearInterval(m.timer);
-    m.timer = setInterval(() => {
-      m.timeLeft = Math.max(0, m.timeLeft - 0.1);
+    if (m.timerEnabled) {
+      m.timeLeft = 10;
       updateMode3Timer();
-      if (m.timeLeft <= 0) {
-        clearInterval(m.timer);
-        if (!m.answered) submitMode3(q, q.type === 'multi' ? [...selectedOptions] : null);
-      }
-    }, 100);
+      m.timer = setInterval(() => {
+        m.timeLeft = Math.max(0, m.timeLeft - 0.1);
+        updateMode3Timer();
+        if (m.timeLeft <= 0) {
+          clearInterval(m.timer);
+          if (!m.answered) submitMode3(q, q.type === 'multi' ? [...selectedOptions] : null);
+        }
+      }, 100);
+    }
   }
 
   updateStatusBar();
@@ -1211,6 +1359,15 @@ function updateMode3Timer() {
   fill.style.width = pct + '%';
   fill.classList.toggle('warning', m.timeLeft < 5);
   fill.classList.toggle('danger', m.timeLeft < 3);
+}
+
+function toggleMode3Timer() {
+  const m = state.mode3;
+  m.timerEnabled = !m.timerEnabled;
+  localStorage.setItem('infection_game_timer', m.timerEnabled ? '1' : '0');
+  if (m.timer) { clearInterval(m.timer); m.timer = null; }
+  m.answered = false;
+  renderMode3();
 }
 
 function submitMode3(q, userAnswer) {
@@ -1245,6 +1402,7 @@ function submitMode3(q, userAnswer) {
     addWrong(q.diseaseId, q.question, userStr, correctStr, 'mode3');
   }
   state.totalAnswered++;
+  recordDiseaseResult(q.diseaseId, isCorrect);
   saveStats();
   renderMode3();
 }
@@ -1279,6 +1437,18 @@ function renderStats() {
   const allAcc = s.totalAnswered > 0 ? Math.round(s.correctAnswered / s.totalAnswered * 100) : 0;
   const container = document.getElementById('mainContent');
 
+  // Build per-disease stats
+  const ds = s.diseaseStats || {};
+  const diseaseEntries = Object.entries(ds).sort((a, b) => {
+    const totalA = a[1].correct + a[1].wrong;
+    const totalB = b[1].correct + b[1].wrong;
+    return totalB - totalA; // Most practiced first
+  });
+
+  // Get unique wrong disease IDs for retry
+  const wrongDiseaseIds = [...new Set(s.wrongBook.map(w => w.diseaseId).filter(Boolean))];
+  const wrongDiseases = wrongDiseaseIds.map(id => DISEASES.find(d => d.id === id)).filter(Boolean);
+
   container.innerHTML = `
     <div class="section-title">📊 学习统计</div>
     <div class="stats-grid">
@@ -1290,7 +1460,52 @@ function renderStats() {
       <div class="stat-card"><div class="stat-num">${s.wrongBook.length}</div><div class="stat-title">错题数</div></div>
     </div>
 
-    <div class="section-title" style="font-size:1.1em;">📝 错题本</div>
+    <!-- Retry Practice -->
+    ${wrongDiseases.length > 0 ? `
+      <div class="retry-box" style="text-align:center;margin-bottom:20px;padding:16px;background:linear-gradient(135deg,#fef7e0,#fce8e6);border-radius:12px;border:2px solid #f9ab00;">
+        <div style="font-weight:700;margin-bottom:8px;color:#e37400;">🎯 错题重练</div>
+        <div class="retry-desc" style="font-size:0.85em;color:#5f6368;margin-bottom:10px;">你有 <b>${wrongDiseases.length}</b> 种疾病的错题，针对性练习效果更佳！</div>
+        <button class="btn btn-primary" onclick="startRetryPractice('mode1')" style="margin:3px;">🛡️ 防护选择重练</button>
+        <button class="btn btn-success" onclick="startRetryPractice('mode2')" style="margin:3px;">🦠 分类挑战重练</button>
+      </div>
+    ` : `
+      <div class="empty-state"><div class="empty-icon">🎉</div><div>暂无错题，继续保持！</div></div>
+    `}
+
+    <!-- Per-Disease Stats -->
+    ${diseaseEntries.length > 0 ? `
+      <div class="section-title" style="font-size:1.1em;">🎯 疾病掌握度</div>
+      <div style="overflow-x:auto;">
+        <table class="knowledge-table" style="font-size:0.82em;">
+          <thead>
+            <tr><th>疾病</th><th>正确</th><th>错误</th><th>掌握度</th><th>进度</th></tr>
+          </thead>
+          <tbody>
+            ${diseaseEntries.map(([id, stats]) => {
+              const total = stats.correct + stats.wrong;
+              const pct = Math.round(stats.correct / total * 100);
+              const grade = pct >= 80 ? '🟢' : pct >= 50 ? '🟡' : '🔴';
+              return `
+                <tr class="disease-stat-row">
+                  <td><strong>${stats.name}</strong></td>
+                  <td style="color:#0d904f;">${stats.correct}</td>
+                  <td style="color:#d93025;">${stats.wrong}</td>
+                  <td>${grade} ${pct}%</td>
+                  <td>
+                    <div class="mini-bar-bg" style="height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden;">
+                      <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#1a73e8,#0d904f);border-radius:3px;transition:width 0.3s;"></div>
+                    </div>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    ` : '<div class="empty-state"><div style="font-size:1.5em;">📝</div><div>完成答题后这里会显示每个疾病的掌握情况</div></div>'}
+
+    <!-- Wrong Book -->
+    <div class="section-title" style="font-size:1.1em;margin-top:20px;">📝 错题本</div>
     ${s.wrongBook.length === 0 ? '<div class="empty-state"><div class="empty-icon">🎉</div><div>还没有错题，继续保持！</div></div>' : `
       <div class="wrong-list">
         ${s.wrongBook.slice().reverse().slice(0, 50).map((w, i) => `
@@ -1303,9 +1518,15 @@ function renderStats() {
         `).join('')}
       </div>
     `}
-    <div style="text-align:center;margin-top:16px;">
+
+    <!-- Data Management -->
+    <div class="section-title" style="font-size:1em;margin-top:20px;">💾 数据管理</div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;">
+      <button class="btn btn-primary" onclick="exportStats()" style="font-size:0.85em;">📥 导出学习数据</button>
+      <button class="btn btn-outline" onclick="document.getElementById('importFile').click()" style="font-size:0.85em;">📤 导入学习数据</button>
       <button class="btn btn-danger" onclick="clearStats()" style="font-size:0.85em;">🗑️ 清除学习记录</button>
     </div>
+    <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importStats(event)">
   `;
   updateStatusBar();
 }
@@ -1316,6 +1537,82 @@ function clearStats() {
     showToast('已清除所有学习记录', 'info');
     renderStats();
   }
+}
+
+// ============================================================
+// RETRY PRACTICE (错题重练)
+// ============================================================
+function startRetryPractice(mode) {
+  const s = loadStats();
+  const wrongDiseaseIds = [...new Set(s.wrongBook.map(w => w.diseaseId).filter(Boolean))];
+  const wrongDiseases = wrongDiseaseIds.map(id => DISEASES.find(d => d.id === id)).filter(Boolean);
+
+  if (wrongDiseases.length === 0) {
+    showToast('没有错题可以练习！', 'info');
+    return;
+  }
+
+  // Reset the chosen mode with wrong diseases
+  resetRoundState(mode);
+  if (mode === 'mode1') {
+    state.mode1.diseases = shuffle(wrongDiseases).slice(0, Math.min(5, wrongDiseases.length));
+    state.mode1.roundTotal = state.mode1.diseases.length;
+  } else if (mode === 'mode2') {
+    state.mode2.diseases = shuffle(wrongDiseases).slice(0, Math.min(10, wrongDiseases.length));
+    state.mode2.roundTotal = state.mode2.diseases.length;
+  }
+
+  // Switch to that tab
+  state.currentTab = mode;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === mode));
+  updateStatusBar();
+  renderTab(mode);
+  showToast(`🎯 开始错题重练！共 ${mode === 'mode1' ? state.mode1.roundTotal : state.mode2.roundTotal} 题`, 'info');
+}
+
+// ============================================================
+// EXPORT / IMPORT
+// ============================================================
+function exportStats() {
+  const s = loadStats();
+  const data = JSON.stringify(s, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `infection-game-stats-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('✅ 学习数据已导出！', 'success');
+}
+
+function importStats(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      // Validate structure
+      if (typeof data.totalScore !== 'number' || typeof data.totalAnswered !== 'number') {
+        throw new Error('数据格式不正确');
+      }
+      // Confirm before overwriting
+      if (confirm(`即将导入数据：\n- 累计总分：${data.totalScore}\n- 累计答题：${data.totalAnswered}\n- 错题数：${(data.wrongBook || []).length}\n\n确定要覆盖当前数据吗？`)) {
+        localStorage.setItem('infection_game_stats', JSON.stringify(data));
+        showToast('✅ 学习数据已导入！', 'success');
+        renderStats();
+      }
+    } catch (err) {
+      showToast('❌ 文件格式不正确，请选择有效的导出文件', 'error');
+    }
+  };
+  reader.readAsText(file);
+  // Reset input so the same file can be re-imported
+  event.target.value = '';
 }
 
 // ============================================================
@@ -1366,9 +1663,29 @@ function filterReference() {
 }
 
 // ============================================================
+// DARK MODE
+// ============================================================
+function toggleDarkMode() {
+  const body = document.body;
+  body.classList.toggle('dark');
+  const isDark = body.classList.contains('dark');
+  document.getElementById('darkToggle').textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('infection_game_dark', isDark ? '1' : '0');
+}
+
+function initDarkMode() {
+  const saved = localStorage.getItem('infection_game_dark');
+  if (saved === '1') {
+    document.body.classList.add('dark');
+    document.getElementById('darkToggle').textContent = '☀️';
+  }
+}
+
+// ============================================================
 // INIT
 // ============================================================
 function init() {
+  initDarkMode();
   state.currentTab = 'mode1';
   state.score = 0;
   state.combo = 0;
@@ -1377,6 +1694,10 @@ function init() {
   state.mode1.diseases = shuffle(DISEASES).slice(0, 5);
   state.mode2.diseases = shuffle(DISEASES).slice(0, 10);
   state.mode3.questions = generateQuestions();
+  // Restore timer preference
+  const timerPref = localStorage.getItem('infection_game_timer') === '1';
+  state.mode2.timerEnabled = timerPref;
+  state.mode3.timerEnabled = timerPref;
   updateStatusBar();
   renderTab('mode1');
 }
